@@ -1,71 +1,50 @@
-# work-progress README
+<h1 align="center">Work Progress</h1>
 
-This is the README for your extension "work-progress". After writing up a brief description, we recommend including the following sections.
+<p align="center">
+  <img alt="Status" src="https://img.shields.io/badge/status-in progress-green">
+</p>
 
-## Features
+<p align="center">
+  <a href="#dart-about">About</a> &#xa0; | &#xa0; 
+  <a href="#sparkles-features">Features</a> &#xa0; | &#xa0;
+  <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
+  <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
+  <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
+  <a href="#memo-license">License</a> &#xa0; | &#xa0;
+  <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">Author</a>
+</p>
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+<br>
 
-For example if there is an image subfolder under your extension project workspace:
+## :dart: About ##
 
-\!\[feature X\]\(images/feature-x.png\)
+This is an extension for visual studio code, that helps control how much you work
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
-## Requirements
+## :rocket: Technologies ##
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+The following tools were used in this project:
 
-## Extension Settings
+- [TypeScript](https://www.typescriptlang.org/)
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## :white_check_mark: Requirements ##
 
-For example:
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
 
-This extension contributes the following settings:
+## :checkered_flag: Starting ##
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+```bash
+# Clone this project
+$ git clone https://github.com/andrinoff/work-progress.git
 
-## Known Issues
+# Access
+$ cd work-progress
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+# Install dependencies
+$ npm install
 
-## Release Notes
+# Run the project
+$ npm start
+```
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+SOON WILL APPEAR IN VS CODE MARKETPLACE
