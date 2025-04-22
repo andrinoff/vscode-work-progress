@@ -1,0 +1,1 @@
+{"version":3,"file":"clockin.js","sourceRoot":"","sources":["../../src/time/clockin.ts"],"names":[],"mappings":";;AAKA,0BAIC;AARD,6CAAwC;AAIxC,SAAwB,OAAO,CAAC,OAAgC;IAC5D,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,CAAC;IACxB,MAAM,UAAU,GAAG,IAAA,uBAAU,GAAE,CAAC;IAChC,OAAO,CAAC,WAAW,CAAC,MAAM,CAAC,YAAY,EAAE,UAAU,CAAC,CAAC;AACzD,CAAC"}

@@ -1,26 +1,37 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+import clockIn from './time/clockin';
+import clockOut from './time/clockout';
+// This method is called when extension is activated
+// extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
+	// This log helps with cathing errors at the startup
 	console.log('Congratulations, your extension "work-progress" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
+	const login = "work-progress.login";
+	const login_command = async (name:string = "Login to Work Progress") => {
+		const result = await vscode.window.showInputBox({
+			placeHolder: 'Enter your login:',
+		});
+		console.log(result);
+	};	
+
 	const disposable = vscode.commands.registerCommand('work-progress.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Work Progress!');
+		vscode.window.showInformationMessage('Work Progress has been loaded correctly!');
 	});
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(
+		disposable, 
+		vscode.commands.registerCommand(login, login_command), 
+		vscode.commands.registerCommand('work-progress.clockIn', () => clockIn(context)), 
+		vscode.commands.registerCommand('work-progress.clockOut', () => clockOut(context))
+	);
 }
-
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+	// This log helps with cathing errors at the shutdown
+	console.log('Work Progress has been deactivated!');
+}
