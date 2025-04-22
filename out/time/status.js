@@ -33,19 +33,17 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = clockOut;
+exports.default = status;
 const time_count_1 = require("./time_count");
 const vscode = __importStar(require("vscode"));
-function clockOut(context) {
+function status(context) {
     const start_time = parseInt(context.globalState.get("start_time") || "0");
+    const status = (0, time_count_1.endTimer)(start_time);
     if (start_time === 0) {
-        vscode.window.showErrorMessage("You have not clocked in yet!");
+        vscode.window.showInformationMessage("You have not clocked in yet!");
     }
     else {
-        console.log("Clock out");
-        const time_elapsed = JSON.stringify((0, time_count_1.endTimer)(start_time));
-        vscode.window.showInformationMessage(time_elapsed + " minutes you have worked today! \n \n Good job!");
-        context.globalState.update("start_time", "0");
+        vscode.window.showInformationMessage("You have worked " + status + " minutes! Keep going!");
     }
 }
-//# sourceMappingURL=clockout.js.map
+//# sourceMappingURL=status.js.map

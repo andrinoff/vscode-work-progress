@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import clockIn from './time/clockin';
 import clockOut from './time/clockout';
+import status from './time/status';
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -27,7 +28,8 @@ export function activate(context: vscode.ExtensionContext) {
 		disposable, 
 		vscode.commands.registerCommand(login, login_command), 
 		vscode.commands.registerCommand('work-progress.clockIn', () => clockIn(context)), 
-		vscode.commands.registerCommand('work-progress.clockOut', () => clockOut(context))
+		vscode.commands.registerCommand('work-progress.clockOut', () => clockOut(context)),
+		vscode.commands.registerCommand('work-progress.status', () => status(context))
 	);
 }
 // This method is called when your extension is deactivated

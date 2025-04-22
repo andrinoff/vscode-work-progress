@@ -43,6 +43,7 @@ exports.deactivate = deactivate;
 const vscode = __importStar(require("vscode"));
 const clockin_1 = __importDefault(require("./time/clockin"));
 const clockout_1 = __importDefault(require("./time/clockout"));
+const status_1 = __importDefault(require("./time/status"));
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
 function activate(context) {
@@ -60,7 +61,7 @@ function activate(context) {
         // Display a message box to the user
         vscode.window.showInformationMessage('Work Progress has been loaded correctly!');
     });
-    context.subscriptions.push(disposable, vscode.commands.registerCommand(login, login_command), vscode.commands.registerCommand('work-progress.clockIn', () => (0, clockin_1.default)(context)), vscode.commands.registerCommand('work-progress.clockOut', () => (0, clockout_1.default)(context)));
+    context.subscriptions.push(disposable, vscode.commands.registerCommand(login, login_command), vscode.commands.registerCommand('work-progress.clockIn', () => (0, clockin_1.default)(context)), vscode.commands.registerCommand('work-progress.clockOut', () => (0, clockout_1.default)(context)), vscode.commands.registerCommand('work-progress.status', () => (0, status_1.default)(context)));
 }
 // This method is called when your extension is deactivated
 function deactivate() {
