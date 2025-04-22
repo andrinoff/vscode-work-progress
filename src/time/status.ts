@@ -11,3 +11,4 @@ export default function status(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage("You have worked " + status + " minutes! Keep going!");
     }
 }
+

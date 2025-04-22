@@ -57,5 +57,9 @@
     "@vscode/test-electron": "^2.4.1",
     "eslint": "^9.23.0",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@emailjs/nodejs": "^5.0.2",
+    "nodemailer": "^6.10.1"
   }
 }

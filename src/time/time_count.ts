@@ -8,7 +8,4 @@ function endTimer(start: number) {
     }
 
 
-
-
-
 export {startTimer, endTimer};
