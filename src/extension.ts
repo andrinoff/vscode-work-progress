@@ -5,12 +5,16 @@ import clockIn from './time/clockin';
 import clockOut from './time/clockout';
 import status from './time/status';
 import login from './email/login';
+import checkScreenTime from './screentime/check_screen_time';
+
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	// This log helps with cathing errors at the startup
 	console.log('Congratulations, your extension "work-progress" is now active!');
-
+	// Check how long the person has been working
+	checkScreenTime(context);
+	
 
 	const disposable = vscode.commands.registerCommand('work-progress.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed

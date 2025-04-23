@@ -45,11 +45,14 @@ const clockin_1 = __importDefault(require("./time/clockin"));
 const clockout_1 = __importDefault(require("./time/clockout"));
 const status_1 = __importDefault(require("./time/status"));
 const login_1 = __importDefault(require("./email/login"));
+const check_screen_time_1 = __importDefault(require("./screentime/check_screen_time"));
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
 function activate(context) {
     // This log helps with cathing errors at the startup
     console.log('Congratulations, your extension "work-progress" is now active!');
+    // Check how long the person has been working
+    (0, check_screen_time_1.default)(context);
     const disposable = vscode.commands.registerCommand('work-progress.helloWorld', () => {
         // The code you place here will be executed every time your command is executed
         // Display a message box to the user

@@ -7,7 +7,7 @@ export default function login(context: vscode.ExtensionContext): void {
     })
     .then ((email_input) => {
         context.globalState.update('email', email_input);
-        const email_base = JSON.stringify(context.globalState.get('email'))
+        const email_base = JSON.stringify(context.globalState.get('email'));
         console.log(email_base);
         if (email_base === undefined || email_base === '') {
             vscode.window.showErrorMessage('Please set your email and password in the settings.');
@@ -19,14 +19,14 @@ export default function login(context: vscode.ExtensionContext): void {
             return;
         }
         else {
-            console.log("writing email")
+            console.log("writing email");
             fetch('https://server-work-progress.vercel.app/send-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: email_input })
-            })
+            });
         }
     }
-    )
+    );
     
 }

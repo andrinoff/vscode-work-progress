@@ -33,33 +33,21 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = login;
+exports.default = checkScreenTime;
 const vscode = __importStar(require("vscode"));
-function login(context) {
-    const email_input = vscode.window.showInputBox({
-        prompt: 'Enter your email',
-        placeHolder: '{"email"}',
-    })
-        .then((email_input) => {
-        context.globalState.update('email', email_input);
-        const email_base = JSON.stringify(context.globalState.get('email'));
-        console.log(email_base);
-        if (email_base === undefined || email_base === '') {
-            vscode.window.showErrorMessage('Please set your email and password in the settings.');
-            return;
+let sessionStartTime;
+let interval;
+function checkScreenTime(context) {
+    sessionStartTime = Date.now();
+    interval = setInterval(() => {
+        const now = Date.now();
+        const minutes = Math.floor((now - sessionStartTime) / 1000 / 60);
+        console.log(`[Your Extension] User has been working for ${minutes} minute(s).`);
+        if (minutes > 60) {
+            vscode.window.showInformationMessage("You have spent more than 60 minutes working. Take a break!");
+            clearInterval(interval);
         }
-        else if (!email_base.includes('@')) {
-            vscode.window.showErrorMessage('Please enter a valid email address.');
-            return;
-        }
-        else {
-            console.log("writing email");
-            fetch('https://server-work-progress.vercel.app/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email_input })
-            });
-        }
-    });
+        // You can also send telemetry or update a UI panel here
+    }, 60 * 1000);
 }
-//# sourceMappingURL=login.js.map
+//# sourceMappingURL=check_screen_time.js.map
