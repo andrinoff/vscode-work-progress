@@ -31,23 +31,23 @@
     "commands": [
       {
         "command": "work-progress.login",
-        "title": "Login"
+        "title": "Work Progress: Login"
       },
       {
         "command": "work-progress.logout",
-        "title": "Logout"
+        "title": "Work Progress: Logout"
       },
       {
         "command": "work-progress.clockIn",
-        "title": "Clock in"
+        "title": "Work Progress: Clock in"
       },
       {
         "command": "work-progress.clockOut",
-        "title": "Clock out"
+        "title": "Work Progress: Clock out"
       },
       {
         "command": "work-progress.status",
-        "title": "Status"
+        "title": "Work Progress: Status"
       }
     ]
   },
