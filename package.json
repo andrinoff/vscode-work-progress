@@ -12,30 +12,42 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Work Progress Settings",
+      "properties": {
+        "work-progress.weeklyReport": {
+          "type": "boolean",
+          "default": true,
+          "description": "Send weekly report to email"
+        },
+        "work-progress.screenTimeReminder": {
+          "type": "boolean",
+          "default": true,
+          "description": "Send notification that you have been working for too long"
+        }
+      }
+    },
     "commands": [
       {
-        "command": "work-progress.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "work-progress.login",
-        "title": "Login"
+        "title": "Work Progress: Login"
       },
       {
         "command": "work-progress.logout",
-        "title": "Logout"
+        "title": "Work Progress: Logout"
       },
       {
         "command": "work-progress.clockIn",
-        "title": "Clock in"
+        "title": "Work Progress: Clock in"
       },
       {
         "command": "work-progress.clockOut",
-        "title": "Clock out"
+        "title": "Work Progress: Clock out"
       },
       {
         "command": "work-progress.status",
-        "title": "Status"
+        "title": "Work Progress: Status"
       }
     ]
   },
@@ -57,5 +69,9 @@
     "@vscode/test-electron": "^2.4.1",
     "eslint": "^9.23.0",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@emailjs/nodejs": "^5.0.2",
+    "nodemailer": "^6.10.1"
   }
 }

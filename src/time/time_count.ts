@@ -7,10 +7,5 @@ function endTimer(start: number) {
     return Math.floor((time_elapsed / (1000 * 60)) % 60);
     }
 
-function timeStatus() {
-    
-} 
 
-
-
-export {startTimer, endTimer, timeStatus};
+export {startTimer, endTimer};

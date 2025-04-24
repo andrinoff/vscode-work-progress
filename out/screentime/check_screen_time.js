@@ -33,21 +33,21 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = clockOut;
-const time_count_1 = require("./time_count");
+exports.default = checkScreenTime;
 const vscode = __importStar(require("vscode"));
-function clockOut(context) {
-    const start_time = parseInt(context.globalState.get("start_time") || "0");
-    if (start_time === 0) {
-        vscode.window.showErrorMessage("You have not clocked in yet!");
-    }
-    else {
-        console.log("Clock out");
-        const time_elapsed = JSON.stringify((0, time_count_1.endTimer)(start_time));
-        vscode.window.showInformationMessage(time_elapsed + " minutes you have worked today! \n \n Good job!");
-        context.globalState.update("start_time", "0");
-        context.globalState.update("time_worked", time_elapsed);
-    }
-    const time_worked = JSON.stringify(context.globalState.get("time_worked") || "0");
+let sessionStartTime;
+let interval;
+function checkScreenTime(context) {
+    sessionStartTime = Date.now();
+    interval = setInterval(() => {
+        const now = Date.now();
+        const minutes = Math.floor((now - sessionStartTime) / 1000 / 60);
+        console.log(`[Your Extension] User has been working for ${minutes} minute(s).`);
+        if (minutes > 60) {
+            vscode.window.showInformationMessage("You have spent more than 60 minutes working. Take a break!");
+            clearInterval(interval);
+        }
+        // You can also send telemetry or update a UI panel here
+    }, 60 * 1000);
 }
-//# sourceMappingURL=clockout.js.map
+//# sourceMappingURL=check_screen_time.js.map

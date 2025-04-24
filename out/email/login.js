@@ -33,21 +33,33 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = clockOut;
-const time_count_1 = require("./time_count");
+exports.default = login;
 const vscode = __importStar(require("vscode"));
-function clockOut(context) {
-    const start_time = parseInt(context.globalState.get("start_time") || "0");
-    if (start_time === 0) {
-        vscode.window.showErrorMessage("You have not clocked in yet!");
-    }
-    else {
-        console.log("Clock out");
-        const time_elapsed = JSON.stringify((0, time_count_1.endTimer)(start_time));
-        vscode.window.showInformationMessage(time_elapsed + " minutes you have worked today! \n \n Good job!");
-        context.globalState.update("start_time", "0");
-        context.globalState.update("time_worked", time_elapsed);
-    }
-    const time_worked = JSON.stringify(context.globalState.get("time_worked") || "0");
+function login(context) {
+    const email_input = vscode.window.showInputBox({
+        prompt: 'Enter your email',
+        placeHolder: '{"email"}',
+    })
+        .then((email_input) => {
+        context.globalState.update('email', email_input);
+        const email_base = JSON.stringify(context.globalState.get('email'));
+        console.log(email_base);
+        if (email_base === undefined || email_base === '') {
+            vscode.window.showErrorMessage('Please set your email and password in the settings.');
+            return;
+        }
+        else if (!email_base.includes('@')) {
+            vscode.window.showErrorMessage('Please enter a valid email address.');
+            return;
+        }
+        else {
+            console.log("writing email");
+            fetch('https://server-work-progress.vercel.app/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email_input })
+            });
+        }
+    });
 }
-//# sourceMappingURL=clockout.js.map
+//# sourceMappingURL=login.js.map
