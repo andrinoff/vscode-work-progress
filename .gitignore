@@ -2,3 +2,5 @@ vsc-extension-quickstart.md
 .gitignore
 node_modules
 package-lock.json
+out
+work-progress-*.vsix

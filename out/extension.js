@@ -61,8 +61,9 @@ function activate(context) {
     context.subscriptions.push(disposable, vscode.commands.registerCommand("work-progress.login", () => (0, login_1.default)(context)), vscode.commands.registerCommand('work-progress.clockIn', () => (0, clockin_1.default)(context)), vscode.commands.registerCommand('work-progress.clockOut', () => (0, clockout_1.default)(context)), vscode.commands.registerCommand('work-progress.status', () => (0, status_1.default)(context)));
 }
 // This method is called when your extension is deactivated
-function deactivate() {
+function deactivate(context) {
     // This log helps with cathing errors at the shutdown
     console.log('Work Progress has been deactivated!');
+    (0, clockout_1.default)(context);
 }
 //# sourceMappingURL=extension.js.map

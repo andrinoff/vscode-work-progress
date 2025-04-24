@@ -38,16 +38,18 @@ const vscode = __importStar(require("vscode"));
 let sessionStartTime;
 let interval;
 function checkScreenTime(context) {
-    sessionStartTime = Date.now();
-    interval = setInterval(() => {
-        const now = Date.now();
-        const minutes = Math.floor((now - sessionStartTime) / 1000 / 60);
-        console.log(`[Your Extension] User has been working for ${minutes} minute(s).`);
-        if (minutes > 60) {
-            vscode.window.showInformationMessage("You have spent more than 60 minutes working. Take a break!");
-            clearInterval(interval);
-        }
-        // You can also send telemetry or update a UI panel here
-    }, 60 * 1000);
+    if (vscode.workspace.getConfiguration("work-progress.screenTimeReminder")) {
+        sessionStartTime = Date.now();
+        interval = setInterval(() => {
+            const now = Date.now();
+            const minutes = Math.floor((now - sessionStartTime) / 1000 / 60);
+            console.log(`[Your Extension] User has been working for ${minutes} minute(s).`);
+            if (minutes > 60) {
+                vscode.window.showInformationMessage("You have spent more than 60 minutes working. Take a break!");
+                clearInterval(interval);
+            }
+            // You can also send telemetry or update a UI panel here
+        }, 60 * 1000);
+    }
 }
 //# sourceMappingURL=check_screen_time.js.map

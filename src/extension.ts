@@ -6,6 +6,7 @@ import clockOut from './time/clockout';
 import status from './time/status';
 import login from './email/login';
 import checkScreenTime from './screentime/check_screen_time';
+import { endTimer } from './time/time_count';
 
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
@@ -31,7 +32,8 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 }
 // This method is called when your extension is deactivated
-export function deactivate() {
+export function deactivate(context: vscode.ExtensionContext) {
 	// This log helps with cathing errors at the shutdown
 	console.log('Work Progress has been deactivated!');
+	clockOut(context);
 }
