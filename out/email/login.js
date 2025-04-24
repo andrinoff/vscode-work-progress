@@ -35,31 +35,32 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = login;
 const vscode = __importStar(require("vscode"));
-function login(context) {
-    const email_input = vscode.window.showInputBox({
+async function login(context) {
+    const email_input = await vscode.window.showInputBox({
         prompt: 'Enter your email',
-        placeHolder: '{"email"}',
-    })
-        .then((email_input) => {
-        context.globalState.update('email', email_input);
-        const email_base = JSON.stringify(context.globalState.get('email'));
-        console.log(email_base);
-        if (email_base === undefined || email_base === '') {
-            vscode.window.showErrorMessage('Please set your email and password in the settings.');
-            return;
-        }
-        else if (!email_base.includes('@')) {
-            vscode.window.showErrorMessage('Please enter a valid email address.');
-            return;
-        }
-        else {
-            console.log("writing email");
-            fetch('https://server-work-progress.vercel.app/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email_input })
-            });
-        }
+        placeHolder: 'name@example.com',
     });
+    if (!email_input || email_input.trim() === '') {
+        vscode.window.showErrorMessage('Please set your email and password in the settings.');
+        return;
+    }
+    if (!email_input.includes('@')) {
+        vscode.window.showErrorMessage('Please enter a valid email address.');
+        return;
+    }
+    context.globalState.update('email', email_input);
+    console.log("writing email");
+    try {
+        const response = await fetch('https://server-work-progress.vercel.app/api/welcome', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email_input })
+        });
+        console.log(response);
+        vscode.window.showInformationMessage('Email sent successfully!');
+    }
+    catch (error) {
+        vscode.window.showErrorMessage(`Failed to send email: ${error}`);
+    }
 }
 //# sourceMappingURL=login.js.map
