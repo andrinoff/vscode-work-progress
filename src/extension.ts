@@ -7,6 +7,7 @@ import status from './time/status';
 import login from './email/login';
 import checkScreenTime from './screentime/check_screen_time';
 import { endTimer } from './time/time_count';
+import logout from './email/logout';
 
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
@@ -26,6 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		disposable, 
 		vscode.commands.registerCommand("work-progress.login", () => login(context) ), 
+		vscode.commands.registerCommand("work-progress.logout", () => logout(context) ), 
 		vscode.commands.registerCommand('work-progress.clockIn', () => clockIn(context)), 
 		vscode.commands.registerCommand('work-progress.clockOut', () => clockOut(context)),
 		vscode.commands.registerCommand('work-progress.status', () => status(context))

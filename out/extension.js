@@ -46,6 +46,7 @@ const clockout_1 = __importDefault(require("./time/clockout"));
 const status_1 = __importDefault(require("./time/status"));
 const login_1 = __importDefault(require("./email/login"));
 const check_screen_time_1 = __importDefault(require("./screentime/check_screen_time"));
+const logout_1 = __importDefault(require("./email/logout"));
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
 function activate(context) {
@@ -58,7 +59,7 @@ function activate(context) {
         // Display a message box to the user
         vscode.window.showInformationMessage('Work Progress has been loaded correctly!');
     });
-    context.subscriptions.push(disposable, vscode.commands.registerCommand("work-progress.login", () => (0, login_1.default)(context)), vscode.commands.registerCommand('work-progress.clockIn', () => (0, clockin_1.default)(context)), vscode.commands.registerCommand('work-progress.clockOut', () => (0, clockout_1.default)(context)), vscode.commands.registerCommand('work-progress.status', () => (0, status_1.default)(context)));
+    context.subscriptions.push(disposable, vscode.commands.registerCommand("work-progress.login", () => (0, login_1.default)(context)), vscode.commands.registerCommand("work-progress.logout", () => (0, logout_1.default)(context)), vscode.commands.registerCommand('work-progress.clockIn', () => (0, clockin_1.default)(context)), vscode.commands.registerCommand('work-progress.clockOut', () => (0, clockout_1.default)(context)), vscode.commands.registerCommand('work-progress.status', () => (0, status_1.default)(context)));
 }
 // This method is called when your extension is deactivated
 function deactivate(context) {
