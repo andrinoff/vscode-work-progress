@@ -1,7 +1,7 @@
 <h1 align="center">Work Progress</h1>
 
 <p align="center">
-  <img src = "icon.png" height = 200px width = 200px>
+  <img src = "https://i.imgur.com/lqnLurl.png" height = 200px width = 200px>
   <br>
   <img alt="Status" src="https://img.shields.io/badge/status-released-brightgreen">
 </p>
