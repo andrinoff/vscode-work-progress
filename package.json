@@ -43,6 +43,10 @@
         "title": "Work Progress: Login"
       },
       {
+        "command": "work-progress.setGoal",
+        "title": "Work Progress: Set Goal"
+      },
+      {
         "command": "work-progress.logout",
         "title": "Work Progress: Logout"
       },

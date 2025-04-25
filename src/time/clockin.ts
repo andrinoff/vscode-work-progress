@@ -6,6 +6,7 @@ import checkScreenTime from "../screentime/check_screen_time";
 
 export default function clockIn(context: vscode.ExtensionContext): void {
     console.log("Clock in");
+    vscode.window.showInformationMessage("You have clocked in! Have a productive day!");
     const start_time = startTimer();
     context.globalState.update("start_time", start_time);
     checkScreenTime(context);
