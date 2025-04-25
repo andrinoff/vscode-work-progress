@@ -2,8 +2,7 @@
 
 All notable changes to the "work-progress" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+- Release in the visual studio code marketplace.
+- Added message when clocked in
+- NEW set goal command, now you can set your working goal
+- Fixed bugs

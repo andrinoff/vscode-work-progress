@@ -1,7 +1,9 @@
 <h1 align="center">Work Progress</h1>
 
 <p align="center">
-  <img alt="Status" src="https://img.shields.io/badge/status-in progress-green">
+  <img src = "icon.png" height = 200px width = 200px>
+  <br>
+  <img alt="Status" src="https://img.shields.io/badge/status-released-brightgreen">
 </p>
 
 <p align="center">
@@ -10,28 +12,36 @@
   <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
-  <a href="#memo-license">License</a> &#xa0; | &#xa0;
-  <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">Author</a>
+  <a href="LICENCE.MD">License</a> &#xa0; | &#xa0;
+  <a href="CHANGELOG.md">Changelog</a> &#xa0; | &#xa0;
+  <a href="TODO.md">TODO</a> &#xa0; | &#xa0;
+  <a href="https://github.com/andrinoff" target="_blank">Author</a>
 </p>
 
 <br>
 
-## :dart: About ##
+## 🎯 About ##
 
 This is an extension for visual studio code, that helps control how much you work
 
 
-## :rocket: Technologies ##
+## 🚀 Technologies ##
 
 The following tools were used in this project:
 
 - [TypeScript](https://www.typescriptlang.org/)
+- [vscodeExtensions](https://code.visualstudio.com/api/)
+- [EmailJS](https://www.emailjs.com/)
 
-## :white_check_mark: Requirements ##
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+## ▫️ Requirements ##
 
-## :checkered_flag: Starting ##
+Before starting 🏁, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+
+## 🏁 Starting ##
+
+DOWNLOAD FROM VISUAL STUDIO CODE
+https://marketplace.visualstudio.com/items?itemName=andrinoff.work-progress
 
 ```bash
 # Clone this project
@@ -44,7 +54,7 @@ $ cd work-progress
 $ npm install
 
 # Run the project
-$ npm start
+IN developer visual studio code interpreter
 ```
 
-SOON WILL APPEAR IN VS CODE MARKETPLACE
+### Protected under MIT License (see [LICENCE.MD](LICENCE.MD) for details)

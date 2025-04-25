@@ -14,7 +14,7 @@ export default function clockOut(context: vscode.ExtensionContext) {
         console.log("Clock out");
         const time_elapsed = JSON.stringify(endTimer(start_time));
         vscode.window.showInformationMessage(time_elapsed + " minutes you have worked today! \n \n Good job!" );
-        context.globalState.update("start_time", "0");
+        context.globalState.update("start_time", undefined);
         context.globalState.update("time_worked", time_elapsed);
         const dayOfWeek = getDayOfWeek();
         if (dayOfWeek === "Monday") {
