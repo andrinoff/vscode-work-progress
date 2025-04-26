@@ -6,7 +6,7 @@ export default async function login(context: vscode.ExtensionContext): Promise<v
         placeHolder: 'name@example.com',
     });
 
-    if (!email_input || email_input.trim() === '') {
+    if (!email_input) {
         vscode.window.showErrorMessage('Please set your email and password in the settings.');
         return;
     }

@@ -40,7 +40,7 @@ async function login(context) {
         prompt: 'Enter your email',
         placeHolder: 'name@example.com',
     });
-    if (!email_input || email_input.trim() === '') {
+    if (!email_input) {
         vscode.window.showErrorMessage('Please set your email and password in the settings.');
         return;
     }

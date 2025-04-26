@@ -25,6 +25,11 @@
       "type": "object",
       "title": "Work Progress Settings",
       "properties": {
+        "work-progress.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Get your API key from https://vscode-work-progress.vercel.app/signin/signin.html"
+        },
         "work-progress.weeklyReport": {
           "type": "boolean",
           "default": true,
