@@ -3,7 +3,7 @@
   "displayName": "Work Progress",
   "icon": "icon.png",
   "description": "A visual studio code extension that idenifies how much progress you have made during working hours",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "publisher": "andrinoff",
   "repository": {
     "type": "git",
