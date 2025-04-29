@@ -36,7 +36,7 @@ export default async function login(context: vscode.ExtensionContext): Promise<v
         } else {
             // Optional: Inform user about the welcome email attempt
             // You could also potentially read the response body here if the welcome API returns useful info
-            vscode.window.showInformationMessage(`Attempted to send welcome email to ${emailString}.`);
+            vscode.window.showInformationMessage(`Attempted to send welcome email to ${apiKey}.`);
         }
 
     } catch (error: any) {
