@@ -1,14 +1,13 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import clockIn from './time/clockin';
-import clockOut from './time/clockout';
+
 import status from './time/status';
 import login from './email/login';
 import checkScreenTime from './screentime/check_screen_time';
-import { endTimer } from './time/time_count';
-import logout from './email/logout';
+
 import setGoal from './time/setGoal';
+import sessionEnd from './email/session_end';
 
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
@@ -17,7 +16,12 @@ export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "work-progress" is now active!');
 	// Check how long the person has been working
 	checkScreenTime(context);
-	
+	if (context.globalState.get("time_worked") !== undefined && context.globalState.get("time_worked") !== 0) {
+		
+	}
+	console.log("sending email for time worked: " + context.globalState.get("time_worked"));
+	sessionEnd(context, parseInt(context.globalState.get("time_worked") || "0") / 60);
+	context.globalState.update("time_worked", "0");
 
 	const disposable = vscode.commands.registerCommand('work-progress.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
@@ -29,15 +33,15 @@ export function activate(context: vscode.ExtensionContext) {
 		disposable, 
 		vscode.commands.registerCommand('work-progress.setGoal', () => setGoal(context)),
 		vscode.commands.registerCommand("work-progress.login", () => login(context) ), 
-		vscode.commands.registerCommand("work-progress.logout", () => logout(context) ), 
-		vscode.commands.registerCommand('work-progress.clockIn', () => clockIn(context)), 
-		vscode.commands.registerCommand('work-progress.clockOut', () => clockOut(context)),
 		vscode.commands.registerCommand('work-progress.status', () => status(context))
 	);
 }
 // This method is called when your extension is deactivated
 export function deactivate(context: vscode.ExtensionContext) {
+	// sessionEnd(context, context.globalState.get("time_worked") || 0);
+	// Clear the global state
+	console.log("time worked: " + context.globalState.get("time_worked"));
 	// This log helps with cathing errors at the shutdown
-	console.log('Work Progress has been deactivated!');
-	clockOut(context);
+	;
+	
 }

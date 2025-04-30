@@ -34,11 +34,10 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = status;
-const time_count_1 = require("./time_count");
 const vscode = __importStar(require("vscode"));
 function status(context) {
     const start_time = parseInt(context.globalState.get("start_time") || "0");
-    const status = (0, time_count_1.endTimer)(start_time);
+    const status = context.globalState.get("time_worked") || "0";
     if (start_time === 0) {
         vscode.window.showInformationMessage("You have not clocked in yet!");
     }

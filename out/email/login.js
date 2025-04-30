@@ -45,16 +45,17 @@ async function login(context) {
         // vscode.window.showInformationMessage('API key input cancelled.');
         return;
     }
-    // Store the API key first
+    // Store the API key in global state for quick access within the extension
     await context.globalState.update('apiKey', apiKey);
-    vscode.window.showInformationMessage('API Key saved.'); // Give feedback
+    // Store the API key in VS Code configuration settings (global scope)
+    await vscode.workspace.getConfiguration('work-progress').update('apiKey', apiKey, vscode.ConfigurationTarget.Global);
+    vscode.window.showInformationMessage('API Key saved.'); // Give feedback that it's saved
     // --- Get Email ---
     try {
         console.log(`Sending welcome email to: ${apiKey}`); // This should now log the actual email
         const welcomeResponse = await fetch('https://server-work-progress.vercel.app/api/welcome', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            // *** Use the extracted emailString here ***
             body: JSON.stringify({ apiKey: apiKey }) // Correctly sending { "email": "user@example.com" }
         });
         console.log("Welcome email response status:", welcomeResponse.status);
@@ -66,7 +67,7 @@ async function login(context) {
         else {
             // Optional: Inform user about the welcome email attempt
             // You could also potentially read the response body here if the welcome API returns useful info
-            vscode.window.showInformationMessage(`Attempted to send welcome email to ${apiKey}.`);
+            vscode.window.showInformationMessage(`Sent welcome email to you. Check spam!`);
         }
     }
     catch (error) {

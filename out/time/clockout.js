@@ -32,15 +32,10 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = clockOut;
 const time_count_1 = require("./time_count");
 const vscode = __importStar(require("vscode"));
-const date_1 = require("../email/weekly/date");
-const send_1 = __importDefault(require("../email/weekly/send"));
 function clockOut(context) {
     const start_time = parseInt(context.globalState.get("start_time") || "0");
     if (start_time === 0) {
@@ -52,50 +47,6 @@ function clockOut(context) {
         vscode.window.showInformationMessage(time_elapsed + " minutes you have worked today! \n \n Good job!");
         context.globalState.update("start_time", undefined);
         context.globalState.update("time_worked", time_elapsed);
-        const dayOfWeek = (0, date_1.getDayOfWeek)();
-        if (dayOfWeek === "Monday") {
-            (0, send_1.default)(context);
-            const prevLog = context.globalState.get("monday_time") || "0";
-            const newLog = parseInt(prevLog) + parseInt(time_elapsed);
-            context.globalState.update("monday_time", newLog.toString());
-            context.globalState.update("monday_date", (0, date_1.getCurrentDate)());
-        }
-        else if (dayOfWeek === "Tuesday") {
-            const prevLog = context.globalState.get("tuesday_time") || "0";
-            const newLog = parseInt(prevLog) + parseInt(time_elapsed);
-            context.globalState.update("tuesday_time", newLog.toString());
-            context.globalState.update("tuesday_date", (0, date_1.getCurrentDate)());
-        }
-        else if (dayOfWeek === "Wednesday") {
-            const prevLog = context.globalState.get("wednesday_time") || "0";
-            const newLog = parseInt(prevLog) + parseInt(time_elapsed);
-            context.globalState.update("wednesday_time", newLog.toString());
-            context.globalState.update("wednesday_date", (0, date_1.getCurrentDate)());
-        }
-        else if (dayOfWeek === "Thursday") {
-            const prevLog = context.globalState.get("thursday_time") || "0";
-            const newLog = parseInt(prevLog) + parseInt(time_elapsed);
-            context.globalState.update("thursday_time", newLog.toString());
-            context.globalState.update("thursday_date", (0, date_1.getCurrentDate)());
-        }
-        else if (dayOfWeek === "Friday") {
-            const prevLog = context.globalState.get("friday_time") || "0";
-            const newLog = parseInt(prevLog) + parseInt(time_elapsed);
-            context.globalState.update("friday_time", newLog.toString());
-            context.globalState.update("friday_date", (0, date_1.getCurrentDate)());
-        }
-        else if (dayOfWeek === "Saturday") {
-            const prevLog = context.globalState.get("saturday_time") || "0";
-            const newLog = parseInt(prevLog) + parseInt(time_elapsed);
-            context.globalState.update("saturday_time", newLog.toString());
-            context.globalState.update("saturday_date", (0, date_1.getCurrentDate)());
-        }
-        else if (dayOfWeek === "Sunday") {
-            const prevLog = context.globalState.get("sunday_time") || "0";
-            const newLog = parseInt(prevLog) + parseInt(time_elapsed);
-            context.globalState.update("sunday_time", newLog.toString());
-            context.globalState.update("sunday_date", (0, date_1.getCurrentDate)());
-        }
     }
 }
 //# sourceMappingURL=clockout.js.map
