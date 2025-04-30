@@ -3,7 +3,7 @@
   "displayName": "Work Progress",
   "icon": "icon.png",
   "description": "A visual studio code extension that idenifies how much progress you have made during working hours",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "andrinoff",
   "repository": {
     "type": "git",
@@ -30,10 +30,10 @@
           "default": "",
           "description": "Get your API key from https://vscode-work-progress.vercel.app/signin/signin.html"
         },
-        "work-progress.weeklyReport": {
+        "work-progress.session": {
           "type": "boolean",
-          "default": true,
-          "description": "Send weekly report to email"
+          "default": false,
+          "description": "Send session report to email"
         },
         "work-progress.screenTimeReminder": {
           "type": "boolean",
@@ -50,18 +50,6 @@
       {
         "command": "work-progress.setGoal",
         "title": "Work Progress: Set Goal"
-      },
-      {
-        "command": "work-progress.logout",
-        "title": "Work Progress: Logout"
-      },
-      {
-        "command": "work-progress.clockIn",
-        "title": "Work Progress: Clock in"
-      },
-      {
-        "command": "work-progress.clockOut",
-        "title": "Work Progress: Clock out"
       },
       {
         "command": "work-progress.status",

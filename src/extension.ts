@@ -16,13 +16,13 @@ export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "work-progress" is now active!');
 	// Check how long the person has been working
 	checkScreenTime(context);
-	if (context.globalState.get("time_worked") !== undefined && context.globalState.get("time_worked") !== 0) {
-		
-	}
-	console.log("sending email for time worked: " + context.globalState.get("time_worked"));
+	if (context.globalState.get("time_worked") !== undefined && context.globalState.get("time_worked") !== 0 && vscode.workspace.getConfiguration("work-progress").get<boolean>("session", false)) {
+		console.log("sending email for time worked: " + context.globalState.get("time_worked"));
 	sessionEnd(context, parseInt(context.globalState.get("time_worked") || "0") / 60);
 	context.globalState.update("time_worked", "0");
 
+	}
+	
 	const disposable = vscode.commands.registerCommand('work-progress.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
