@@ -36,13 +36,21 @@ The following tools were used in this project:
 
 ## ▫️ Requirements ##
 
-Before starting 🏁, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+Download from visual studio code
 
 ## 🏁 Starting ##
+
+1. Go to https://vscode-work-progress.vercel.app and create an account!
+2. Get api key
+3. in command "Work Progress: Log in" enter you api key
+4. Done! You will get an email in spam folder
+
+
 
 DOWNLOAD FROM VISUAL STUDIO CODE
 https://marketplace.visualstudio.com/items?itemName=andrinoff.work-progress
 
+RAW:
 ```bash
 # Clone this project
 $ git clone https://github.com/andrinoff/work-progress.git
