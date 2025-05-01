@@ -53,7 +53,7 @@ https://marketplace.visualstudio.com/items?itemName=andrinoff.work-progress
 RAW:
 ```bash
 # Clone this project
-$ git clone https://github.com/andrinoff/work-progress.git
+$ git clone https://github.com/work-progress/work-progress.git
 
 # Access
 $ cd work-progress
