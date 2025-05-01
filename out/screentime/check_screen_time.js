@@ -43,13 +43,9 @@ let reminderShownThisSession = false; // Flag to prevent spamming the reminder
 // --- Configuration ---
 const CONFIG_SECTION = "work-progress";
 const CONFIG_REMINDER_ENABLED = "screenTimeReminder";
-function getReminderThresholdSeconds() {
-    const minutes = 60; // Default 60 minutes
-    return minutes;
-}
 function checkAndShowReminder() {
     const reminderEnabled = vscode.workspace.getConfiguration(CONFIG_SECTION).get(CONFIG_REMINDER_ENABLED, true); // Default true
-    const thresholdSeconds = getReminderThresholdSeconds();
+    const thresholdSeconds = 3600;
     const thresholdMinutes = thresholdSeconds / 60;
     if (reminderEnabled && totalFocusedSeconds >= thresholdSeconds && !reminderShownThisSession) {
         vscode.window.showInformationMessage(`You have spent more than ${thresholdMinutes} minutes working. Consider taking a break!`);
@@ -73,6 +69,9 @@ function startFocusTracking(context) {
         // Check if the reminder threshold has been reached
         checkAndShowReminder();
     }, 1000); // Update every second
+}
+function reminder() {
+    const reminderEnabled = vscode.workspace.getConfiguration(CONFIG_SECTION).get(CONFIG_REMINDER_ENABLED, true); // Default true
 }
 function stopFocusTracking() {
     // If not tracking, do nothing
