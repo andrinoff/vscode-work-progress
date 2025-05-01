@@ -12,14 +12,11 @@ const CONFIG_SECTION = "work-progress";
 const CONFIG_REMINDER_ENABLED = "screenTimeReminder";
 
 
-function getReminderThresholdSeconds(): number {
-    const minutes =  60; // Default 60 minutes
-    return minutes;
-}
+
 
 function checkAndShowReminder() {
     const reminderEnabled = vscode.workspace.getConfiguration(CONFIG_SECTION).get<boolean>(CONFIG_REMINDER_ENABLED, true); // Default true
-    const thresholdSeconds = getReminderThresholdSeconds();
+    const thresholdSeconds = 3600;
     const thresholdMinutes = thresholdSeconds / 60;
 
     if (reminderEnabled && totalFocusedSeconds >= thresholdSeconds && !reminderShownThisSession) {
@@ -29,8 +26,6 @@ function checkAndShowReminder() {
 }
 
 function startFocusTracking(context: vscode.ExtensionContext) {
-    
-    
     // If already tracking, do nothing
     if (focusIntervalId !== null) {
         return;
@@ -52,6 +47,11 @@ function startFocusTracking(context: vscode.ExtensionContext) {
 
     }, 1000); // Update every second
 }
+
+function reminder() {
+    const reminderEnabled = vscode.workspace.getConfiguration(CONFIG_SECTION).get<boolean>(CONFIG_REMINDER_ENABLED, true); // Default true
+}
+
 
 function stopFocusTracking() {
     // If not tracking, do nothing
@@ -76,6 +76,7 @@ function stopFocusTracking() {
 
 export default function checkScreenTime(context: vscode.ExtensionContext) {
     console.log('Activating screen time tracker.');
+
 
     // Register the window state change listener ONCE
     context.subscriptions.push(vscode.window.onDidChangeWindowState(windowState => {
