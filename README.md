@@ -40,10 +40,10 @@ Download from visual studio code
 
 ## 🏁 Starting ##
 
-1. Go to https://vscode-work-progress.vercel.app and create an account!
+1. Go to https://vswork-progress.vercel.app and create an account!
 2. Get api key
-3. in command "Work Progress: Log in" enter you api key
-4. Done! You will get an email in spam folder
+3. In command "Work Progress: Log in" or settings enter your api key
+4. Done! You should get an email in spam folder!
 
 
 
