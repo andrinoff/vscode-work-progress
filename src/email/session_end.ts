@@ -18,6 +18,8 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
 
 
     // TURNED OFF, QUOTA CAPPED
+    // FIXME: May 22 
+    // TODO: Get domain xD
     // fetch('https://server-work-progress.vercel.app/api/session_end', {
     //     method: 'POST',
     //     headers: { 'Content-Type': 'application/json' },
