@@ -36,11 +36,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = status;
 const vscode = __importStar(require("vscode"));
 function status(context) {
-    const status = parseInt(context.globalState.get("time_worked") || "0");
+    const status = Math.round(parseInt(context.globalState.get("time_worked") || "0") / 60);
+    console.log("Status: " + status);
     if (status === 0) {
         vscode.window.showInformationMessage("error occured");
     }
     else {
+        console.log("Status: " + status);
         vscode.window.showInformationMessage("You have worked " + status + " minutes! Keep going!");
     }
 }

@@ -14,10 +14,34 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
     }
 
     // Send the time worked to the server
-    fetch('https://server-work-progress.vercel.app/api/session_end', {
+
+
+
+    // TURNED OFF, QUOTA CAPPED
+    // fetch('https://server-work-progress.vercel.app/api/session_end', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ apiKey: apiKey, time_worked: time_worked })
+    // })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error(`Server responded with ${response.status}`);
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         console.log("Session end response:", data);
+    //         vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked} seconds.`);
+    //     })
+    //     .catch(error => {
+    //         console.error("Error sending session end data:", error);
+    //         vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
+    //     });
+    // Save the latest session time to the backend
+    fetch('https://work-progress-backend.vercel.app/api/server', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ apiKey: apiKey, time_worked: time_worked })
+        body: JSON.stringify({ apiKey: apiKey, latestTime: time_worked, sign : "updateLatestTime" })
     })
         .then(response => {
             if (!response.ok) {
@@ -27,10 +51,10 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
         })
         .then(data => {
             console.log("Session end response:", data);
-            vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked} seconds.`);
+            vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked/60} minutes.`);
         })
         .catch(error => {
-            console.error("Error sending session end data:", error);
+            console.error("Error sending session end data to backend:", error);
             vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
-        });
+    });
 }
