@@ -33,4 +33,24 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
             console.error("Error sending session end data:", error);
             vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
         });
+    // Save the latest session time to the backend
+    fetch('https://work-progress-backend.vercel.app/api/server', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey: apiKey, latestTime: time_worked, sign : "updateLatestTime" })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server responded with ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Session end response:", data);
+            vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked} seconds.`);
+        })
+        .catch(error => {
+            console.error("Error sending session end data:", error);
+            vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
+    });
 }
