@@ -73,10 +73,10 @@ function startFocusTracking(context) {
     // Start an interval to increment the focused time every second
     focusIntervalId = setInterval(() => {
         totalFocusedSeconds++;
-        // Save tbe current time working in the global state
+        // Save the current time working in the global state
         context.globalState.update("time_worked", totalFocusedSeconds);
         // Optional: Log cumulative time for debugging
-        console.log(`Total focused time: ${totalFocusedSeconds} seconds`);
+        console.log(`Total focused time: ${context.globalState.get("time_worked")} seconds`);
         // Check if the reminder threshold has been reached
         checkAndShowReminder();
     }, 1000); // Update every second
