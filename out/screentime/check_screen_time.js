@@ -60,16 +60,14 @@ function checkAndShowReminder() {
     }
 }
 function startFocusTracking(context) {
-    // If already tracking, do nothing
-    if (focusIntervalId !== null) {
-        return;
-    }
     console.log("VS Code window focused. Starting timer.");
     focusStartTime = Date.now(); // Record start time
     if (notFocusIntervalId !== null) {
         clearInterval(notFocusIntervalId); // Clear idle interval if it exists
         notFocusIntervalId = null; // Reset idle interval ID
     }
+    context.globalState.update("time_idle", "0");
+    totalIdleSeconds = 0; // Reset idle time 
     // Start an interval to increment the focused time every second
     focusIntervalId = setInterval(() => {
         totalFocusedSeconds++;
@@ -112,13 +110,12 @@ function stopFocusTracking(context) {
 function checkScreenTime(context) {
     console.log('Activating screen time tracker.');
     sessionEndIntervalId = setInterval(() => {
-        const timeIdle = parseInt(context.globalState.get("time_idle", "0")) || 0;
+        const timeIdle = parseInt(context.globalState.get("time_idle") || "0") || 0;
         if (timeIdle >= 3600 &&
-            context.globalState.get("time_worked") !== undefined &&
-            context.globalState.get("time_worked") !== 0 &&
             vscode.workspace.getConfiguration("work-progress").get("session", false)) { // 1 hour in seconds
             // Send the time worked to the server
-            (0, session_end_1.default)(context, parseInt(context.globalState.get("time_worked") || "0") / 60);
+            const minutesWorked = Math.round(parseInt(context.globalState.get("time_worked") || "0") / 60);
+            (0, session_end_1.default)(context, minutesWorked);
             // clearing and resseting the global state
             context.globalState.update("time_worked", "0");
             if (focusIntervalId !== null) {
@@ -126,7 +123,8 @@ function checkScreenTime(context) {
                 focusIntervalId = null; // Reset the interval ID
             }
             if (notFocusIntervalId !== null) {
-                clearInterval(notFocusIntervalId); // Stop the idle interval
+                clearInterval(notFocusIntervalId);
+                context.globalState.update("time_idle", "0"); // Reset") // Stop the idle interval
                 notFocusIntervalId = null; // Reset the interval ID
             }
         }

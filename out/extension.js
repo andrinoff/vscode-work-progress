@@ -61,7 +61,7 @@ function activate(context) {
     console.log('Congratulations, your extension "work-progress" is now active!');
     // Send the email with the time worked
     (0, check_screen_time_1.default)(context);
-    if (context.globalState.get("time_worked") !== undefined && context.globalState.get("time_worked") !== 0 && vscode.workspace.getConfiguration("work-progress").get("session", false)) {
+    if (context.globalState.get("time_worked") !== undefined && context.globalState.get("time_worked") !== "0" && vscode.workspace.getConfiguration("work-progress").get("session", false)) {
         console.log("sending email for time worked: " + context.globalState.get("time_worked"));
         (0, session_end_1.default)(context, parseInt(context.globalState.get("time_worked") || "0") / 60);
         context.globalState.update("time_worked", "0");
