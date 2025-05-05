@@ -37,7 +37,7 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
     fetch('https://work-progress-backend.vercel.app/api/server', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ apiKey: apiKey, latestTime: time_worked, sign : "updateLatestTime" })
+        body: JSON.stringify({ apiKey: apiKey, latestTime: time_worked/60, sign : "updateLatestTime" })
     })
         .then(response => {
             if (!response.ok) {
@@ -47,7 +47,7 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
         })
         .then(data => {
             console.log("Session end response:", data);
-            vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked} seconds.`);
+            vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked/60} minutes.`);
         })
         .catch(error => {
             console.error("Error sending session end data:", error);
