@@ -3,11 +3,11 @@
   "displayName": "Work Progress",
   "icon": "icon.png",
   "description": "A visual studio code extension that idenifies how much progress you have made during working hours",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "andrinoff",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrinoff/vscode-work-progress.git"
+    "url": "https://github.com/work-progress/work-progress.git"
   },
   "engines": {
     "vscode": "^1.99.0"
