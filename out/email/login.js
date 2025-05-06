@@ -50,8 +50,10 @@ async function login(context) {
     // Store the API key in VS Code configuration settings (global scope)
     await vscode.workspace.getConfiguration('work-progress').update('apiKey', apiKey, vscode.ConfigurationTarget.Global);
     vscode.window.showInformationMessage('API Key saved.'); // Give feedback that it's saved
+    context.globalState.update("time_worked", "0");
+    context.globalState.update("time_idle", "0");
     // --- Get Email ---
-    // TURNED OFF, QUOTA CAPPED
+    // FIXME: TURNED OFF, QUOTA CAPPED
     // try {
     //     console.log(`Sending welcome email to: ${apiKey}`); // This should now log the actual email
     //     const welcomeResponse = await fetch('https://server-work-progress.vercel.app/api/welcome', {

@@ -12,8 +12,10 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
         vscode.window.showErrorMessage("API key not found. Please log in first.");
         return;
     }
-
-    // Send the time worked to the server
+    // Get the current date of the week to save it in the backend
+    const weekdays = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    const date = new Date();
+    const day = weekdays[date.getDay()];
 
 
 
@@ -39,11 +41,16 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
     //         console.error("Error sending session end data:", error);
     //         vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
     //     });
+
+
+
+
     // Save the latest session time to the backend
+    // TODO: disassemble the server.ts on backend
     fetch('https://work-progress-backend.vercel.app/api/server', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ apiKey: apiKey, latestTime: time_worked, sign : "updateLatestTime" })
+        body: JSON.stringify({ apiKey: apiKey, dayTime: time_worked, day: day, sign : "updateWeekTime" })
     })
         .then(response => {
             if (!response.ok) {
