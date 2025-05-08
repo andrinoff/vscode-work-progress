@@ -8,4 +8,6 @@
 - [] Get domain (:sob:)
 - [x] fix database not getting minutes
 - [] make a working interval, thats going to send data to the backend
-- [] find a temporary storage for the value of working time updated constantly
+- [] find a temporary storage for the value of working time updated constantly (server)
+- [] [status](../src/time/status.ts) divided/multiplied by 2
+- [] Fix [email](../src/email/session_end.ts)
