@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 
+// TODO: test this function
+
 export default function setGoal(context: vscode.ExtensionContext): void {
     vscode.window.showInputBox({
         prompt: 'Enter your goal in minutes',
@@ -21,7 +23,7 @@ export default function setGoal(context: vscode.ExtensionContext): void {
                 vscode.window.showErrorMessage('Please enter a valid number.');
                 console.error("Error setting goal: ", error);
             }
-            
+
         } else {
             vscode.window.showWarningMessage('No goal was set.');
         }

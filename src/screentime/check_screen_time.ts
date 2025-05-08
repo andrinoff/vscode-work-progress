@@ -14,9 +14,6 @@ let sessionEndIntervalId: NodeJS.Timeout | null = null; // Interval timer for se
 const CONFIG_SECTION = "work-progress";
 const CONFIG_REMINDER_ENABLED = "screenTimeReminder";
 
-
-
-
 function checkAndShowReminder() {
     const reminderEnabled = vscode.workspace.getConfiguration(CONFIG_SECTION).get<boolean>(CONFIG_REMINDER_ENABLED, true); // Default true
     const thresholdSeconds = 3600;
@@ -24,7 +21,7 @@ function checkAndShowReminder() {
 
     if (reminderEnabled && totalFocusedSeconds >= thresholdSeconds && !reminderShownThisSession) {
         vscode.window.showInformationMessage(`You have spent more than ${thresholdMinutes} minutes working. Consider taking a break!`);
-        reminderShownThisSession = true; // Show only once per continuous focus session exceeding the limit
+        reminderShownThisSession = true; // Show only once per continuous focus session exceeding the limit.
     }
 }
 
@@ -138,12 +135,12 @@ export default function checkScreenTime(context: vscode.ExtensionContext) {
             // Note: Here we cannot put the sessionEnd function, because dispose is not async
             // and the sessionEnd function is going to be forced to stop before the fetch is done
             // So we need to put the sessionEnd function in the setInterval in extension.ts
-            
+
             // Reset all timers and flags
             totalFocusedSeconds = 0;
             totalIdleSeconds = 0;
             // console.log('Deactivating screen time tracker. Clearing interval.');
-            
+
             if (focusIntervalId !== null) {
                 clearInterval(focusIntervalId);
                 focusIntervalId = null;

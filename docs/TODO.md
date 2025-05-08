@@ -1,4 +1,4 @@
-# TODO 
+# TODO
 
 - [x] Measure time without commands
 - [x] Send weekly/dayly emails (maybe i will go for emails after each session)

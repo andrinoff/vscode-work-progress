@@ -56,7 +56,7 @@ function checkAndShowReminder() {
     const thresholdMinutes = thresholdSeconds / 60;
     if (reminderEnabled && totalFocusedSeconds >= thresholdSeconds && !reminderShownThisSession) {
         vscode.window.showInformationMessage(`You have spent more than ${thresholdMinutes} minutes working. Consider taking a break!`);
-        reminderShownThisSession = true; // Show only once per continuous focus session exceeding the limit
+        reminderShownThisSession = true; // Show only once per continuous focus session exceeding the limit.
     }
 }
 function startFocusTracking(context) {
@@ -154,11 +154,13 @@ function checkScreenTime(context) {
     context.subscriptions.push({
         dispose: () => {
             console.log('Work Progress has been deactivated! session ended. with time worked: ' + context.globalState.get("time_worked"));
+            // Note: Here we cannot put the sessionEnd function, because dispose is not async
+            // and the sessionEnd function is going to be forced to stop before the fetch is done
+            // So we need to put the sessionEnd function in the setInterval in extension.ts
             // Reset all timers and flags
             totalFocusedSeconds = 0;
             totalIdleSeconds = 0;
             // console.log('Deactivating screen time tracker. Clearing interval.');
-            // Send the time worked to the server
             if (focusIntervalId !== null) {
                 clearInterval(focusIntervalId);
                 focusIntervalId = null;
