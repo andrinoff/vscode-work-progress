@@ -25,3 +25,7 @@ All notable changes to the "work-progress" extension will be documented in this 
 
 - Emails turned off (temporarly)
 - Not fixed idle and focused time
+
+## 1.1.2
+
+- Idle and focus time fixed

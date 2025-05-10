@@ -14,9 +14,6 @@ let sessionEndIntervalId: NodeJS.Timeout | null = null; // Interval timer for se
 const CONFIG_SECTION = "work-progress";
 const CONFIG_REMINDER_ENABLED = "screenTimeReminder";
 
-
-
-
 function checkAndShowReminder() {
     const reminderEnabled = vscode.workspace.getConfiguration(CONFIG_SECTION).get<boolean>(CONFIG_REMINDER_ENABLED, true); // Default true
     const thresholdSeconds = 3600;
@@ -24,19 +21,24 @@ function checkAndShowReminder() {
 
     if (reminderEnabled && totalFocusedSeconds >= thresholdSeconds && !reminderShownThisSession) {
         vscode.window.showInformationMessage(`You have spent more than ${thresholdMinutes} minutes working. Consider taking a break!`);
-        reminderShownThisSession = true; // Show only once per continuous focus session exceeding the limit
+        reminderShownThisSession = true; // Show only once per continuous focus session exceeding the limit.
     }
 }
 
 function startFocusTracking(context: vscode.ExtensionContext) {
-    console.log("VS Code window focused. Starting timer.");
-    focusStartTime = Date.now(); // Record start time
+    console.log("VS Code window focused. Stopping idle timer, starting focus timer.");
+
+    // Stop the idle timer first
     if (notFocusIntervalId !== null) {
-    clearInterval(notFocusIntervalId); // Clear idle interval if it exists
-    notFocusIntervalId = null; // Reset idle interval ID
+        clearInterval(notFocusIntervalId); // Clear idle interval if it exists
+        notFocusIntervalId = null; // Reset idle interval ID
     }
     context.globalState.update("time_idle", "0");
-    totalIdleSeconds = 0; // Reset idle time 
+    totalIdleSeconds = 0; // Reset idle time counter
+
+    // Ensure any existing focus timer is stopped before starting a new one
+    if (focusIntervalId !== null) { clearInterval(focusIntervalId); }
+    focusStartTime = Date.now(); // Record start time
     // Start an interval to increment the focused time every second
     focusIntervalId = setInterval(() => {
         totalFocusedSeconds++;
@@ -51,64 +53,56 @@ function startFocusTracking(context: vscode.ExtensionContext) {
     }, 1000); // Update every second
 }
 
-function reminder() {
-    const reminderEnabled = vscode.workspace.getConfiguration(CONFIG_SECTION).get<boolean>(CONFIG_REMINDER_ENABLED, true); // Default true
-}
-
-
 function stopFocusTracking(context: vscode.ExtensionContext) {
-    // If not tracking, start another timer for idle time
-    console.log("VS Code window already unfocused. Starting idle timer.");
+    console.log("VS Code window lost focus. Stopping focus timer, starting idle timer.");
+
+    // Stop the focus timer first
+    if (focusIntervalId !== null) {
+        clearInterval(focusIntervalId); // Stop the interval
+        focusIntervalId = null; // Clear the interval ID
+    }
+    focusStartTime = null; // Reset start time
+    reminderShownThisSession = false; // Reset reminder flag when focus is lost
+
+    // Ensure any existing idle timer is stopped before starting a new one
+    if (notFocusIntervalId !== null) { clearInterval(notFocusIntervalId); }
+    // Start the idle timer
     notFocusIntervalId = setInterval(() => {
         totalIdleSeconds++;
         // Save the current idle time in the global state
         context.globalState.update("time_idle", totalIdleSeconds);
         // Optional: Log idle time for debugging
         console.log(`Total idle time: ${totalIdleSeconds} seconds`);
-        return;
-    }, 1000); // Update every second
-
-    console.log("VS Code window lost focus. Stopping timer.");
-    if (focusIntervalId !== null) {
-        clearInterval(focusIntervalId); // Stop the interval
-        focusIntervalId = null; // Clear the interval ID
-    }
-
-    // Optional: Calculate the exact duration of the last focused session
-    // This adds the final fraction of a second if needed, though usually the 1-second interval is sufficient.
     // if (focusStartTime) {
     //     const sessionMillis = Date.now() - focusStartTime;
     //     // Be careful here if you already incremented the last second via interval
     // }
 
     focusStartTime = null; // Reset start time
-    reminderShownThisSession = false; // Reset reminder flag when focus is lost
+}, 1000); // Update every second
 }
-
 export default function checkScreenTime(context: vscode.ExtensionContext) {
     console.log('Activating screen time tracker.');
 
     sessionEndIntervalId = setInterval(() => {
         const timeIdle = parseInt(context.globalState.get("time_idle") || "0") || 0;
+        const sessionEnabled = vscode.workspace.getConfiguration("work-progress").get<boolean>("session", false);
 
-        if (timeIdle >= 3600 && 
-            vscode.workspace.getConfiguration("work-progress").get<boolean>("session", false)
-        ) { // 1 hour in seconds
+        if (sessionEnabled && timeIdle >= 3600) { // 1 hour in seconds
+            console.log("Session ended due to idle time threshold.");
             // Send the time worked to the server
-            
             const minutesWorked =Math.round( parseInt(context.globalState.get("time_worked") || "0") / 60);
             sessionEnd(context, minutesWorked);
-            // clearing and resseting the global state
+
+            // Reset counters and global state for the new "session"
+            totalFocusedSeconds = 0;
+            totalIdleSeconds = 0;
             context.globalState.update("time_worked", "0");
-            if (focusIntervalId !== null) {
-                clearInterval(focusIntervalId); // Stop the focus interval
-                focusIntervalId = null; // Reset the interval ID
-            }
-            if (notFocusIntervalId !== null) {
-                clearInterval(notFocusIntervalId);
-                context.globalState.update("time_idle", "0"); // Reset") // Stop the idle interval
-                notFocusIntervalId = null; // Reset the interval ID
-            }
+            context.globalState.update("time_idle", "0");
+            reminderShownThisSession = false; // Also reset reminder flag
+
+            // NOTE: We no longer clear focusIntervalId or notFocusIntervalId here.
+            // The currently active interval (based on focus state) will continue, but operate on the reset counters.
         }
     }, 1000); // Update every second
 
@@ -138,12 +132,22 @@ export default function checkScreenTime(context: vscode.ExtensionContext) {
     context.subscriptions.push({
         dispose: () => {
             console.log('Work Progress has been deactivated! session ended. with time worked: ' + context.globalState.get("time_worked"));
+            // Note: Here we cannot put the sessionEnd function, because dispose is not async
+            // and the sessionEnd function is going to be forced to stop before the fetch is done
+            // So we need to put the sessionEnd function in the setInterval in extension.ts
+
+            // Reset all timers and flags
+            totalFocusedSeconds = 0;
+            totalIdleSeconds = 0;
             // console.log('Deactivating screen time tracker. Clearing interval.');
-                 // Send the time worked to the server
+
             if (focusIntervalId !== null) {
                 clearInterval(focusIntervalId);
                 focusIntervalId = null;
             }
+            if (notFocusIntervalId !== null) {
+                clearInterval(notFocusIntervalId);
+                notFocusIntervalId = null;
+            }
         }
-    });
-}
+    });}

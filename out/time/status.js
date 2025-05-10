@@ -35,6 +35,7 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = status;
 const vscode = __importStar(require("vscode"));
+// FIXME: the status function is either multiplying or dividing the time worked by 2 in beta it's saying "error occured"
 function status(context) {
     const status = Math.round(parseInt(context.globalState.get("time_worked") || "0") / 60);
     console.log("Status: " + status);

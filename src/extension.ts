@@ -9,6 +9,8 @@ import checkScreenTime from './screentime/check_screen_time';
 import setGoal from './time/setGoal';
 import sessionEnd from './email/session_end';
 
+let updateBackendIntervalId: NodeJS.Timeout | null = null;
+
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -18,18 +20,25 @@ export function activate(context: vscode.ExtensionContext) {
 	}
 	// Checking if the user is logged in
 	if (vscode.workspace.getConfiguration("work-progress").get<string>("apiKey") === undefined || vscode.workspace.getConfiguration("work-progress").get<string>("apiKey") === "" || context.globalState.get("apiKey") === undefined || context.globalState.get("apiKey") === "") {
-		vscode.window.showInformationMessage("Please log in to Work Progress to use email notifications. You can do it on https://vswork-progress.vercel.app or https://andrinoff.github.io/workprogress/");
+		vscode.window.showInformationMessage("Please log in to Work Progress to use email notifications. ", "Log in", "API key").then((selection) => {
+			if (selection === "Log in") {
+				vscode.env.openExternal(vscode.Uri.parse("https://andrinoff.github.io/workprogress/account/signin.html"));
+			} else if (selection === "API key") {
+				login(context);
+			}
+		}) ;
 	}
 	// This log helps with cathing errors at the startup
 	console.log('Congratulations, your extension "work-progress" is now active!');
 	// Send the email with the time worked
 	checkScreenTime(context);
-	if (context.globalState.get("time_worked") !== undefined && context.globalState.get("time_worked") !== "0" && vscode.workspace.getConfiguration("work-progress").get<boolean>("session", false)) {
-		console.log("sending email for time worked: " + context.globalState.get("time_worked"));
-	sessionEnd(context, parseInt(context.globalState.get("time_worked") || "0") / 60);
-	context.globalState.update("time_worked", "0");
 
-	}
+	updateBackendIntervalId = setInterval(() => {
+		const apiKey = context.globalState.get("apiKey");
+		const timeWorked = parseInt(context.globalState.get("time_worked") || "0") || 0;
+		sessionEnd(context, timeWorked);
+		// Send the time worked to the server every minute
+	}, 60000);
 	
 	const disposable = vscode.commands.registerCommand('work-progress.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
@@ -43,13 +52,4 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand("work-progress.login", () => login(context) ), 
 		vscode.commands.registerCommand('work-progress.status', () => status(context))
 	);
-}
-// This method is called when your extension is deactivated
-export function deactivate(context: vscode.ExtensionContext) {
-	// sessionEnd(context, context.globalState.get("time_worked") || 0);
-	// Clear the global state
-	console.log("time worked: " + context.globalState.get("time_worked"));
-	// This log helps with cathing errors at the shutdown
-	;
-	
 }
