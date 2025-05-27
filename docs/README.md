@@ -3,7 +3,7 @@
 <p align="center">
   <img src = "https://i.imgur.com/lqnLurl.png" height = 200px width = 200px>
   <br>
-  <img alt="Status" src="https://img.shields.io/badge/version-v1.1.2-green">
+  <img alt="Status" src="https://img.shields.io/badge/version-v1.1.4-green">
 </p>
 
 <p align="center">
