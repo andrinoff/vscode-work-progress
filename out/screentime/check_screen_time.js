@@ -39,9 +39,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = checkScreenTime;
 const vscode = __importStar(require("vscode"));
 const session_end_1 = __importDefault(require("../email/session_end"));
+// Note: This module seems to work perfectly by the time of 08/05/25
 // Variables to track focus state and time
 let totalFocusedSeconds = 0;
-let focusStartTime = null; // Timestamp when focus was gained, null if not focused
 let focusIntervalId = null; // Interval timer for tracking focus duration
 let reminderShownThisSession = false; // Flag to prevent spamming the reminder
 let totalIdleSeconds = 0; // Total idle time in seconds
@@ -72,7 +72,6 @@ function startFocusTracking(context) {
     if (focusIntervalId !== null) {
         clearInterval(focusIntervalId);
     }
-    focusStartTime = Date.now(); // Record start time
     // Start an interval to increment the focused time every second
     focusIntervalId = setInterval(() => {
         totalFocusedSeconds++;
@@ -91,7 +90,6 @@ function stopFocusTracking(context) {
         clearInterval(focusIntervalId); // Stop the interval
         focusIntervalId = null; // Clear the interval ID
     }
-    focusStartTime = null; // Reset start time
     reminderShownThisSession = false; // Reset reminder flag when focus is lost
     // Ensure any existing idle timer is stopped before starting a new one
     if (notFocusIntervalId !== null) {
@@ -108,15 +106,13 @@ function stopFocusTracking(context) {
         //     const sessionMillis = Date.now() - focusStartTime;
         //     // Be careful here if you already incremented the last second via interval
         // }
-        focusStartTime = null; // Reset start time
     }, 1000); // Update every second
 }
 function checkScreenTime(context) {
     console.log('Activating screen time tracker.');
     sessionEndIntervalId = setInterval(() => {
         const timeIdle = parseInt(context.globalState.get("time_idle") || "0") || 0;
-        const sessionEnabled = vscode.workspace.getConfiguration("work-progress").get("session", false);
-        if (sessionEnabled && timeIdle >= 3600) { // 1 hour in seconds
+        if (timeIdle >= 3600) { // 1 hour in seconds
             console.log("Session ended due to idle time threshold.");
             // Send the time worked to the server
             const minutesWorked = Math.round(parseInt(context.globalState.get("time_worked") || "0") / 60);
@@ -127,7 +123,7 @@ function checkScreenTime(context) {
             context.globalState.update("time_worked", "0");
             context.globalState.update("time_idle", "0");
             reminderShownThisSession = false; // Also reset reminder flag
-            // NOTE: We no longer clear focusIntervalId or notFocusIntervalId here.
+            // Note: We no longer clear focusIntervalId or notFocusIntervalId here.
             // The currently active interval (based on focus state) will continue, but operate on the reset counters.
         }
     }, 1000); // Update every second
