@@ -1,9 +1,13 @@
 import * as vscode from 'vscode';
 
+// Note: works perfectly by the time of 08/05/25
+// This function is responsible for logging in the user by asking for their API key
+// and storing it in the global state and VS Code configuration settings.
+
 export default async function login(context: vscode.ExtensionContext): Promise<void> {
     const apiKey = await vscode.window.showInputBox({
         prompt: 'Enter your api key from the website',
-        placeHolder: 'workp-1234569787654567654',
+        placeHolder: 'workp-',
     });
 
     if (!apiKey) {
@@ -11,19 +15,17 @@ export default async function login(context: vscode.ExtensionContext): Promise<v
         // vscode.window.showInformationMessage('API key input cancelled.');
         return;
     }
-    
+
     // Store the API key in global state for quick access within the extension
     await context.globalState.update('apiKey', apiKey);
 
     // Store the API key in VS Code configuration settings (global scope)
     await vscode.workspace.getConfiguration('work-progress').update('apiKey', apiKey, vscode.ConfigurationTarget.Global);
     vscode.window.showInformationMessage('API Key saved.'); // Give feedback that it's saved
-    context.globalState.update("time_worked", "0");
-    context.globalState.update("time_idle", "0");
     // --- Get Email ---
 // FIXME: TURNED OFF, QUOTA CAPPED
     // try {
-    //     console.log(`Sending welcome email to: ${apiKey}`); // This should now log the actual email
+    //     console.log(`Sending welcome email to: ${apiKey}`);
     //     const welcomeResponse = await fetch('https://server-work-progress.vercel.app/api/welcome', {
     //         method: 'POST',
     //         headers: { 'Content-Type': 'application/json' },
@@ -47,7 +49,4 @@ export default async function login(context: vscode.ExtensionContext): Promise<v
     //     console.error("Network error sending welcome email:", error);
     // }
 }
-// Note: The above code assumes that the server will respond with a JSON object containing an "email" field.
-// If the server's response format changes, you may need to adjust the parsing logic accordingly.
-// Also, ensure that the server-side code is correctly handling the requests and sending appropriate responses.
-// --- End of login function ---
+

@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
-// TODO: test this function
+// Note: works perfectly by the time of 08/05/25
+// TODO: doesnt allow decimal numbers
 
 export default function setGoal(context: vscode.ExtensionContext): void {
     vscode.window.showInputBox({
@@ -18,6 +19,7 @@ export default function setGoal(context: vscode.ExtensionContext): void {
                         clearInterval(interval);
                         vscode.window.showInformationMessage(`Congratulations! You have reached your goal of ${goal} minutes!`);
                     }
+                    console.log(`Current time to goal: ${goal*60 - start} seconds`);
             }, 1000);
             } catch(error){
                 vscode.window.showErrorMessage('Please enter a valid number.');

@@ -1,7 +1,7 @@
 # Change Log
 
 All notable changes to the "work-progress" extension will be documented in this file.
- 
+
 - Sign in using api created!
 - Website!!!
 ## 1.0.1:
@@ -15,7 +15,7 @@ All notable changes to the "work-progress" extension will be documented in this 
 - Time measured without having to enter commands
 - API is now manageble from settings
 
-## 1.1.0 
+## 1.1.0
 
 - Checks idle time
 - Sends email if user not focused for 1 hour and stops the timer
@@ -26,6 +26,8 @@ All notable changes to the "work-progress" extension will be documented in this 
 - Emails turned off (temporarly)
 - Not fixed idle and focused time
 
-## 1.1.2
+## 1.1.3 (released)
 
 - Idle and focus time fixed
+- Status fixed
+- DB gets minutes

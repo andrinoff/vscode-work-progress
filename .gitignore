@@ -4,4 +4,22 @@ node_modules
 package-lock.json
 out
 work-progress-*.vsix
+<<<<<<< HEAD
 release
+=======
+release
+.vscode
+.vscode/**
+.vscode-test/**
+src/**
+.gitignore
+.yarnrc
+vsc-extension-quickstart.md
+**/tsconfig.json
+**/eslint.config.mjs
+**/*.map
+**/*.ts
+.vscode-test
+**.vsix
+.vscode-test/**
+>>>>>>> 005d106 (.)
