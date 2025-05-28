@@ -3,10 +3,9 @@
 <p align="center">
   <img src = "https://i.imgur.com/lqnLurl.png" height = 200px width = 200px>
   <br>
-  <img alt="Status" src="https://img.shields.io/visual-studio-marketplace/v/andrinoff.work-progress
-">
-  <img alt="Issues" src="https://img.shields.io/github/issues/work-progress/work-progress
-">
+  <img alt="Visual Studio Marketplace Version" src="https://img.shields.io/visual-studio-marketplace/v/andrinoff.work-progress">
+  <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/work-progress/work-progress">
+
 </p>
 
 
