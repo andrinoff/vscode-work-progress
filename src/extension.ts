@@ -8,6 +8,7 @@ import checkScreenTime from './screentime/check_screen_time';
 
 import setGoal from './time/setGoal';
 import sessionEnd from './email/session_end';
+import updateLatest from './time/updateLatest';
 
 let updateBackendIntervalId: NodeJS.Timeout | null = null;
 
@@ -36,7 +37,9 @@ export function activate(context: vscode.ExtensionContext) {
 	updateBackendIntervalId = setInterval(() => {
 		const apiKey = context.globalState.get("apiKey");
 		const timeWorked = parseInt(context.globalState.get("time_worked") || "0") || 0;
-		sessionEnd(context, timeWorked);
+		if (timeWorked != 0) {
+			updateLatest(JSON.stringify(apiKey), timeWorked);
+		}
 		// Send the time worked to the server every minute
 	}, 60000);
 	

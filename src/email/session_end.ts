@@ -46,30 +46,26 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
 
 
 
-
-    // Save the latest session time to the backend
-    // TODO: disassemble the server.ts on backend
-    // FIXME: Fix by the standards of the new backend
-
-
-
-    // fetch('https://work-progress-backend.vercel.app/api/server', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ apiKey: apiKey, dayTime: time_worked, day: day })
-    // })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error(`Server responded with ${response.status}`);
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log("Session end response:", data);
-    //         vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked/60} minutes.`);
-    //     })
-    //     .catch(error => {
-    //         console.error("Error sending session end data to backend:", error);
-    //         vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
-    // });
+    fetch('https://work-progress-backend.vercel.app/api/updateWeekTime', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey: apiKey, dayTime: time_worked, day: day })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server responded with ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Session end response:", data);
+            vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked/60} minutes.`);
+        })
+        .catch(error => {
+            console.error("Error sending session end data to backend:", error);
+            vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
+    });
 }
+
+
+    
