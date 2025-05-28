@@ -8,6 +8,12 @@
 
 </p>
 
+<h2>Web</h2>
+<img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/andrinoff/work-progress-web">
+<img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fvswork-progress.vercel.app">
+
+<h2>Server</h2>
+<img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/andrinoff/work-progress-backend">
 
 
 <p align="center">
