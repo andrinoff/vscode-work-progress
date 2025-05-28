@@ -3,8 +3,13 @@
 <p align="center">
   <img src = "https://i.imgur.com/lqnLurl.png" height = 200px width = 200px>
   <br>
-  <img alt="Status" src="https://img.shields.io/badge/version-v1.1.4-green">
+  <img alt="Status" src="https://img.shields.io/visual-studio-marketplace/v/andrinoff.work-progress
+">
+  <img alt="Issues" src="https://img.shields.io/github/issues/work-progress/work-progress
+">
 </p>
+
+
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
