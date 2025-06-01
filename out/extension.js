@@ -44,7 +44,7 @@ const status_1 = __importDefault(require("./time/status"));
 const login_1 = __importDefault(require("./email/login"));
 const check_screen_time_1 = __importDefault(require("./screentime/check_screen_time"));
 const setGoal_1 = __importDefault(require("./time/setGoal"));
-const session_end_1 = __importDefault(require("./email/session_end"));
+const updateLatest_1 = __importDefault(require("./time/updateLatest"));
 let updateBackendIntervalId = null;
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
@@ -71,7 +71,9 @@ function activate(context) {
     updateBackendIntervalId = setInterval(() => {
         const apiKey = context.globalState.get("apiKey");
         const timeWorked = parseInt(context.globalState.get("time_worked") || "0") || 0;
-        (0, session_end_1.default)(context, timeWorked);
+        if (timeWorked != 0) {
+            (0, updateLatest_1.default)(JSON.stringify(apiKey), timeWorked);
+        }
         // Send the time worked to the server every minute
     }, 60000);
     const disposable = vscode.commands.registerCommand('work-progress.helloWorld', () => {
