@@ -56,22 +56,32 @@ async function login(context) {
     // --- Sending Welcoming Email ---
     try {
         console.log(`Sending welcome email to: ${apiKey}`);
-        const welcomeResponse = await fetch('https://server-work-progress.vercel.app/api/welcome', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ apiKey: apiKey }) // Correctly sending { "email": "user@example.com" }
+        fetch('https://work-progress-backend.vercel.app/api/getConnected', {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(response => {
+            if (response.ok) {
+                fetch('https://server-work-progress.vercel.app/api/welcome', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ apiKey: apiKey }) // Correctly sending { "email": "user@example.com" }
+                })
+                    .then(response => {
+                    console.log("Welcome email response status:", response.status);
+                    if (!response.ok) {
+                        const errorText = response.text().catch(() => 'Could not read error body');
+                        vscode.window.showErrorMessage(`Failed to send welcome email. Server responded with ${response.status}: ${errorText}`);
+                        console.error("Error sending welcome email:", response.status, errorText);
+                    }
+                    else {
+                        // Optional: Inform user about the welcome email attempt
+                        // You could also potentially read the response body here if the welcome API returns useful info
+                        vscode.window.showInformationMessage(`Sent welcome email to you. Check spam!`);
+                    }
+                });
+            }
         });
-        console.log("Welcome email response status:", welcomeResponse.status);
-        if (!welcomeResponse.ok) {
-            const errorText = await welcomeResponse.text().catch(() => 'Could not read error body');
-            vscode.window.showErrorMessage(`Failed to send welcome email. Server responded with ${welcomeResponse.status}: ${errorText}`);
-            console.error("Error sending welcome email:", welcomeResponse.status, errorText);
-        }
-        else {
-            // Optional: Inform user about the welcome email attempt
-            // You could also potentially read the response body here if the welcome API returns useful info
-            vscode.window.showInformationMessage(`Sent welcome email to you. Check spam!`);
-        }
     }
     catch (error) {
         // Handle network errors for the second fetch
