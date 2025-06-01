@@ -19,52 +19,36 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
     const date = new Date();
     const day = weekdays[date.getDay()];
 
+    // Fake fetch to know if the user is connected to the internet
 
-
-    // TURNED OFF, QUOTA CAPPED
-    // FIXME: May 22
-    // TODO: Get domain xD
-    // fetch('https://server-work-progress.vercel.app/api/session_end', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ apiKey: apiKey, time_worked: time_worked })
-    // })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error(`Server responded with ${response.status}`);
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log("Session end response:", data);
-    //         vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked} seconds.`);
-    //     })
-    //     .catch(error => {
-    //         console.error("Error sending session end data:", error);
-    //         vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
-    //     });
-
-
-
-    fetch('https://work-progress-backend.vercel.app/api/updateWeekTime', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ apiKey: apiKey, dayTime: time_worked, day: day })
+    fetch('https://work-progress-backend.vercel.app/api/getConnected', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' }
     })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`Server responded with ${response.status}`);
+            if(response.ok){
+                fetch('https://work-progress-backend.vercel.app/api/updateWeekTime', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ apiKey: apiKey, dayTime: time_worked, day: day })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Server responded with ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Session end response:", data);
+                    vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked/60} minutes.`);
+                })
+                .catch(error => {
+                    console.error("Error sending session end data to backend:", error);
+                    vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
+            });
             }
-            return response.json();
         })
-        .then(data => {
-            console.log("Session end response:", data);
-            vscode.window.showInformationMessage(`Session ended. You worked for ${time_worked/60} minutes.`);
-        })
-        .catch(error => {
-            console.error("Error sending session end data to backend:", error);
-            vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
-    });
+        
 }
 
 
