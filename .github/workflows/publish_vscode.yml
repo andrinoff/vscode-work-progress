@@ -16,6 +16,8 @@ jobs:
           node-version: 16 # Or your desired version
       - name: Update package.json
         run: |
+          git config --global user.email "andrinoff.69@gmail.com"
+          git config --global user.name "Drew"
           npm version patch
       - name: Update github
         run: |
