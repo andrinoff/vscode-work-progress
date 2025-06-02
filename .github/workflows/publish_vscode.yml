@@ -22,7 +22,6 @@ jobs:
           git pull
           npm version patch
           git add package.json 
-          git commit -m "chore(release): update package.json for release"
           git push origin master
       - name: Install vsce
         run: npm install -g vsce
