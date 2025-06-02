@@ -83,6 +83,6 @@
   },
   "dependencies": {
     "@emailjs/nodejs": "^5.0.2",
-    "nodemailer": "^6.10.1"
+    "nodemailer": "^7.0.0"
   }
 }
