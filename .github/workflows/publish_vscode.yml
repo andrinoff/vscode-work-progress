@@ -13,7 +13,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16 # Or your desired version
+          node-version: 19 # Or your desired version
       - name: Update package.json
         run: |
           git config --global user.email "andrinoff.69@gmail.com"
