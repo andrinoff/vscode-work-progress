@@ -22,7 +22,10 @@ jobs:
       - name: Install vsce
         run: npm install -g vsce
       - name: Package the extension
-        run: vsce package
+
+        run: |
+          npm install
+          vsce package
       - name: Publish the extension
         run: vsce publish -p ${{ secrets.VSCODE_PAT }}
         env:
