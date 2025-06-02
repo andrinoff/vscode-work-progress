@@ -11,8 +11,7 @@ Please provide the following details.
 #### Environment details
 
   - OS:
-  - Node.js version:
-  - npm version:
+  - VS Studio Code version:
   - `release-please` version:
 
 #### Steps to reproduce
