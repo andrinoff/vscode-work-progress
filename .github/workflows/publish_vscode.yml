@@ -18,9 +18,12 @@ jobs:
         run: |
 
           git config --global user.email "andrinoff.69@gmail.com"
-          git config --global user.name "Drew"\
+          git config --global user.name "Drew"
           git pull
-          npm version patch  
+          npm version patch 
+          git add package.json package-lock.json
+          git commit -m "chore(release): update package.json for release"
+          git push origin master
       - name: Install vsce
         run: npm install -g vsce
       - name: Package the extension
