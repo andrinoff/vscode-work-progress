@@ -8,6 +8,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - name: Install Node.js
@@ -15,9 +18,6 @@ jobs:
         with:
           node-version: 19 # Or your desired version
       - name: Update package.json
-        permissions:
-          contents: write
-          pull-requests: write
         run: |
 
           git config --global user.email "andrinoff.69@gmail.com"
