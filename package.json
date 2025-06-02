@@ -3,7 +3,7 @@
   "displayName": "Work Progress",
   "icon": "icon.png",
   "description": "A visual studio code extension",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "publisher": "andrinoff",
   "repository": {
     "type": "git",
@@ -18,7 +18,6 @@
   "activationEvents": [
     "*"
   ],
-
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
