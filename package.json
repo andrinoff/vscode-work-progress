@@ -39,6 +39,11 @@
           "type": "boolean",
           "default": true,
           "description": "Send notification that you have been working for too long"
+        },
+        "work-progress.screenTimeReminderTime": {
+          "type": "number",
+          "default": 60,
+          "description": "Time in minutes after which you will receive a notification that you have been working for too long"
         }
       }
     },
