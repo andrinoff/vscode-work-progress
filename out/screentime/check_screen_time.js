@@ -99,20 +99,8 @@ function stopFocusTracking(context) {
     notFocusIntervalId = setInterval(() => {
         totalIdleSeconds++;
         // Save the current idle time in the global state
-        context.globalState.update("time_idle", totalIdleSeconds);
-        // Optional: Log idle time for debugging
-        console.log(`Total idle time: ${totalIdleSeconds} seconds`);
-        // if (focusStartTime) {
-        //     const sessionMillis = Date.now() - focusStartTime;
-        //     // Be careful here if you already incremented the last second via interval
-        // }
-    }, 1000); // Update every second
-}
-function checkScreenTime(context) {
-    console.log('Activating screen time tracker.');
-    sessionEndIntervalId = setInterval(() => {
-        const timeIdle = parseInt(context.globalState.get("time_idle") || "0") || 0;
-        if (timeIdle >= 3600) { // 1 hour in seconds
+        const idleThresholdSeconds = vscode.workspace.getConfiguration('work-progress').get('screenTimeReminderTime', 60); // Default 1 hour
+        if (totalIdleSeconds >= idleThresholdSeconds) { // 1 hour in seconds
             console.log("Session ended due to idle time threshold.");
             // Send the time worked to the server
             const minutesWorked = Math.round(parseInt(context.globalState.get("time_worked") || "0") / 60);
@@ -123,10 +111,20 @@ function checkScreenTime(context) {
             context.globalState.update("time_worked", "0");
             context.globalState.update("time_idle", "0");
             reminderShownThisSession = false; // Also reset reminder flag
-            // Note: We no longer clear focusIntervalId or notFocusIntervalId here.
-            // The currently active interval (based on focus state) will continue, but operate on the reset counters.
+            if (notFocusIntervalId !== null) {
+                clearInterval(notFocusIntervalId); // Clear the session end interval if it exists
+                notFocusIntervalId = null;
+            }
         }
+        context.globalState.update("time_idle", totalIdleSeconds);
+        // Optional: Log idle time for debugging
+        console.log(`Total idle time: ${totalIdleSeconds} ${idleThresholdSeconds} seconds`);
     }, 1000); // Update every second
+}
+async function checkScreenTime(context) {
+    console.log('Activating screen time tracker.');
+    sessionEndIntervalId = setInterval(() => {
+    }, 100); // Update every second
     // Register the window state change listener ONCE
     context.subscriptions.push(vscode.window.onDidChangeWindowState(windowState => {
         if (windowState.focused) {
