@@ -8,7 +8,7 @@ import checkScreenTime from './screentime/check_screen_time';
 
 import setGoal from './time/setGoal';
 import sessionEnd from './email/session_end';
-import updateLatest from './time/updateLatest';
+import updateLatest from './time/Latest';
 
 let updateBackendIntervalId: NodeJS.Timeout | null = null;
 
