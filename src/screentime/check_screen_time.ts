@@ -2,9 +2,6 @@ import * as vscode from 'vscode';
 import sessionEnd from '../email/session_end';
 import { clear } from 'console';
 
-// Note: This module seems to work perfectly by the time of 08/05/25
-
-// Variables to track focus state and time
 let totalFocusedSeconds: number = 0;
 let focusIntervalId: NodeJS.Timeout | null = null; // Interval timer for tracking focus duration
 let reminderShownThisSession: boolean = false; // Flag to prevent spamming the reminder

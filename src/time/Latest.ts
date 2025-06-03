@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 export default function updateLatest(apiKey: string, time: number) {
 // Convert seconds into minutes
-    var time_minutes = time/60
+    var time_minutes = Math.round(time/60);
 // Fetch data to the server
 
     fetch('https://work-progress-backend.vercel.app/api/getConnected', {
@@ -24,7 +24,7 @@ export default function updateLatest(apiKey: string, time: number) {
                     })
                     .then(data => {
                         console.log("Session end response:", data);
-                        vscode.window.showInformationMessage(`Session ended. You worked for ${time/60} minutes.`);
+                        vscode.window.showInformationMessage(`Session ended. You worked for ${time_minutes} minutes.`);
                     })
                     .catch(error => {
                         console.error("Error sending session end data to backend:", error);
