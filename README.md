@@ -25,7 +25,7 @@
 [![Unlicense License][license-shield]][license-url]
 [![Publish Workflow](https://img.shields.io/github/actions/workflow/status/work-progress/work-progress/publish_vscode.yml?style=for-the-badge)](https://github.com/work-progress/work-progress/actions/workflows/publish_vscode.yml)
 [![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/andrinoff.work-progress?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=andrinoff.work-progress)
-
+[![Visual Studio Downloads](https://img.shields.io/visual-studio-marketplace/d/andrinoff.work-progress?style=for-the-badge)]
 
 
 <!-- PROJECT LOGO -->

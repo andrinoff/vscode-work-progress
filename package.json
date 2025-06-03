@@ -7,7 +7,7 @@
   "publisher": "andrinoff",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrinoff/work-progress.git"
+    "url": "https://github.com/work-progress/work-progress.git"
   },
   "engines": {
     "vscode": "^1.99.0"

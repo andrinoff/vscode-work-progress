@@ -39,8 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = checkScreenTime;
 const vscode = __importStar(require("vscode"));
 const session_end_1 = __importDefault(require("../email/session_end"));
-// Note: This module seems to work perfectly by the time of 08/05/25
-// Variables to track focus state and time
 let totalFocusedSeconds = 0;
 let focusIntervalId = null; // Interval timer for tracking focus duration
 let reminderShownThisSession = false; // Flag to prevent spamming the reminder
