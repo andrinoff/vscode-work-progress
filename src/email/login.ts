@@ -1,8 +1,5 @@
 import * as vscode from 'vscode';
 
-// Note: works perfectly by the time of 08/05/25
-// This function is responsible for logging in the user by asking for their API key
-// and storing it in the global state and VS Code configuration settings.
 
 export default async function login(context: vscode.ExtensionContext): Promise<void> {
     const apiKey = await vscode.window.showInputBox({
@@ -11,8 +8,6 @@ export default async function login(context: vscode.ExtensionContext): Promise<v
     });
 
     if (!apiKey) {
-        // User cancelled the input box
-        // vscode.window.showInformationMessage('API key input cancelled.');
         return;
     }
 
@@ -43,8 +38,6 @@ export default async function login(context: vscode.ExtensionContext): Promise<v
                 vscode.window.showErrorMessage(`Failed to send welcome email. Server responded with ${response.status}: ${errorText}`);
                 console.error("Error sending welcome email:", response.status, errorText);
             } else {
-                // Optional: Inform user about the welcome email attempt
-                // You could also potentially read the response body here if the welcome API returns useful info
                 vscode.window.showInformationMessage(`Sent welcome email to you. Check spam!`);
             }
         })

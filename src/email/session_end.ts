@@ -1,10 +1,5 @@
 import * as vscode from 'vscode';
 
-// FIXME: err 404 sometimes
-
-// This function is called when the user ends their session
-// It sends the time worked to the server
-// and sends to email
 export default function sessionEnd(context: vscode.ExtensionContext, time_worked: number) {
     // Get the API key from the global state
     const apiKey = context.globalState.get("apiKey");
