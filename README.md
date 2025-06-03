@@ -18,9 +18,8 @@
   <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
-  <a href="LICENCE.MD">License</a> &#xa0; | &#xa0;
-  <a href="CHANGELOG.md">Changelog</a> &#xa0; | &#xa0;
-  <a href="TODO.md">TODO</a> &#xa0; | &#xa0;
+  <a href="LICENCE">License</a> &#xa0; | &#xa0;
+  <a href= "https://github.com/work-progress/work-progress/releases/latest"> Latest Release</a>
   <a href="https://github.com/andrinoff" target="_blank">Author</a>
 </p>
 
