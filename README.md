@@ -96,8 +96,9 @@ This website will power the entire community, providing resources to learn from 
 git clone https://github.com/work-progress/work-progress.git
 cd work-progress
 npm install
-npm run dev
 ```
+
+press f5 in your vscode
 ### Prerequisites
 
 * npm
@@ -154,7 +155,6 @@ Maintainer:
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 * [Choose an Open Source License](https://choosealicense.com)
 * [Img Shields](https://shields.io)
