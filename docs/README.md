@@ -5,15 +5,12 @@
   <br>
   <img alt="Visual Studio Marketplace Version" src="https://img.shields.io/visual-studio-marketplace/v/andrinoff.work-progress">
   <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/work-progress/work-progress">
+  ![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/andrinoff.work-progress)
+  ![GitHub License](https://img.shields.io/github/license/work-progress/work-progress)
 
 </p>
 
-<h2>Web</h2>
-<img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/andrinoff/work-progress-web">
-<img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fvswork-progress.vercel.app">
 
-<h2>Server</h2>
-<img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/andrinoff/work-progress-backend">
 
 
 <p align="center">
