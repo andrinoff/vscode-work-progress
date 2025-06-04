@@ -44,7 +44,7 @@ const status_1 = __importDefault(require("./time/status"));
 const login_1 = __importDefault(require("./email/login"));
 const check_screen_time_1 = __importDefault(require("./screentime/check_screen_time"));
 const setGoal_1 = __importDefault(require("./time/setGoal"));
-const updateLatest_1 = __importDefault(require("./time/updateLatest"));
+const Latest_1 = __importDefault(require("./time/Latest"));
 let updateBackendIntervalId = null;
 // This method is called when extension is activated
 // extension is activated the very first time the command is executed
@@ -72,7 +72,7 @@ function activate(context) {
         const apiKey = context.globalState.get("apiKey");
         const timeWorked = parseInt(context.globalState.get("time_worked") || "0") || 0;
         if (timeWorked != 0) {
-            (0, updateLatest_1.default)(JSON.stringify(apiKey), timeWorked);
+            (0, Latest_1.default)(JSON.stringify(apiKey), timeWorked);
         }
         // Send the time worked to the server every minute
     }, 60000);

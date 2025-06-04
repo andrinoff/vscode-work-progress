@@ -3,11 +3,11 @@
   "displayName": "Work Progress",
   "icon": "icon.png",
   "description": "A visual studio code extension",
-  "version": "2.0.8",
+  "version": "2.0.13",
   "publisher": "andrinoff",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrinoff/work-progress.git"
+    "url": "https://github.com/work-progress/work-progress.git"
   },
   "engines": {
     "vscode": "^1.99.0"
@@ -82,6 +82,6 @@
   },
   "dependencies": {
     "@emailjs/nodejs": "^5.0.2",
-    "nodemailer": "^6.10.1"
+    "nodemailer": "^7.0.0"
   }
 }
