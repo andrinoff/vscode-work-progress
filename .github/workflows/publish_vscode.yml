@@ -37,3 +37,8 @@ jobs:
         run: vsce publish -p ${{ secrets.VSCODE_PAT }}
         env:
           VSCODE_PAT: ${{ secrets.VSCODE_PAT }}
+      - name: Create Release
+        run: |
+          npx semantic-release --branches master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
