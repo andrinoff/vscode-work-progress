@@ -39,6 +39,7 @@ jobs:
           VSCODE_PAT: ${{ secrets.VSCODE_PAT }}
       - name: Create Release
         run: |
-          npx semantic-release --branches master
+          npm ci 
+          npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
