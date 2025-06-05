@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 19 # Or your desired version
+          node-version: 21 # Or your desired version
       - name: Update package.json
         run: |
 
