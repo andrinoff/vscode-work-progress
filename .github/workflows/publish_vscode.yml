@@ -17,6 +17,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 21 # Or your desired version
+      - name: Create Release
+        run: |
+          npm ci 
+          npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update package.json
         run: |
 
@@ -37,9 +43,4 @@ jobs:
         run: vsce publish -p ${{ secrets.VSCODE_PAT }}
         env:
           VSCODE_PAT: ${{ secrets.VSCODE_PAT }}
-      - name: Create Release
-        run: |
-          npm ci 
-          npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
