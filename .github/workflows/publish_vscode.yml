@@ -62,4 +62,7 @@ jobs:
       - name: Publish to VS Code Marketplace
         env:
           VSCODE_PAT: ${{ secrets.VSCODE_PAT }}
-        run: vsce publish --packagePath my-extension.vsix
+        
+        run: |
+          echo "Publishing to VS Code Marketplace... ${VSCODE_PAT}"
+          vsce publish --packagePath my-extension.vsix
