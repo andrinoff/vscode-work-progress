@@ -1,47 +1,58 @@
-name: Publish VS Code Extension
+name: Release VS Code Extension
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
-  publish:
+  build-and-release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
+    outputs:
+      released: ${{ steps.semantic.outputs.released }}
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Install Node.js
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 21 # Or your desired version
-      - name: Create Release
-        run: |
-          npm install
-          npm ci 
-          npm version ${nextRelease.version} --no-git-tag-version
-          npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Update package.json
-        run: |
+          node-version: '20'
 
-          git config --global user.email "andrinoff.69@gmail.com"
-          git config --global user.name "Drew"
-          git pull
-          git add package.json 
-          git push origin master
+      - name: Install dependencies
+        run: npm ci
+
       - name: Install vsce
         run: npm install -g vsce
-      - name: Package the extension
 
-        run: |
-          npm install
-          vsce package
-      - name: Publish the extension
-        run: vsce publish -p ${{ secrets.VSCODE_PAT }}
+      - name: Package the VSIX
+        run: vsce package -o my-extension.vsix
+
+      - name: Run semantic-release
+        id: semantic
         env:
-          VSCODE_PAT: ${{ secrets.VSCODE_PAT }}
-      
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx semantic-release
+        continue-on-error: false
+
+  publish-to-marketplace:
+    needs: build-and-release
+    if: needs.build-and-release.outputs.released == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install vsce
+        run: npm install -g vsce
+
+      - name: Download VSIX artifact
+        run: vsce package -o my-extension.vsix
+
+      - name: Publish to VS Code Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: vsce publish --packagePath my-extension.vsix
