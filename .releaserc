@@ -13,7 +13,7 @@
   "prepare": [
     {
       "path": "@semantic-release/exec",
-      "cmd": "npm version ${nextRelease.version}"
+      "cmd": "npm version ${nextRelease.version} --no-git-tag-version"
     }
   ]
 }
