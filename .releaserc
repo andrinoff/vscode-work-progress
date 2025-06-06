@@ -3,15 +3,17 @@
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    {
-      "path": "@semantic-release/exec",
-      "cmd": "node scripts/set-version.js ${nextRelease.version}"
-    },
     [
       "@semantic-release/github",
       {
         "assets": ["my-extension.vsix"]
       }
     ]
+  ],
+  "prepare": [
+    {
+      "path": "@semantic-release/exec",
+      "cmd": "npm version ${nextRelease.version}"
+    }
   ]
 }
