@@ -44,7 +44,6 @@ jobs:
 
   publish-to-marketplace:
     needs: build-and-release
-    if: needs.build-and-release.outputs.released == 'true'
     runs-on: ubuntu-latest
 
     steps:
