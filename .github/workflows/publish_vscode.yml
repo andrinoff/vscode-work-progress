@@ -51,7 +51,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install vsce
-        run: npm install -g vsce
+        run: |
+          npm install
+          npm ci
+          npm install -g vsce
 
       - name: Download VSIX artifact
         run: vsce package -o my-extension.vsix
