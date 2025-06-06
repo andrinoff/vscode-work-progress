@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 	if (vscode.workspace.getConfiguration("work-progress").get<string>("apiKey") === undefined || vscode.workspace.getConfiguration("work-progress").get<string>("apiKey") === "" || context.globalState.get("apiKey") === undefined || context.globalState.get("apiKey") === "") {
 		vscode.window.showInformationMessage("Please log in to Work Progress to use email notifications. ", "Log in", "API key").then((selection) => {
 			if (selection === "Log in") {
-				vscode.env.openExternal(vscode.Uri.parse("https://andrinoff.github.io/workprogress/account/signin.html"));
+				vscode.env.openExternal(vscode.Uri.parse("https://work-progress.github.io/account/signin.html"));
 			} else if (selection === "API key") {
 				login(context);
 			}

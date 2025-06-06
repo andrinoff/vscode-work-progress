@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import updateLatest from '../time/Latest';
 
 export default function sessionEnd(context: vscode.ExtensionContext, time_worked: number) {
     // Get the API key from the global state
@@ -41,7 +42,8 @@ export default function sessionEnd(context: vscode.ExtensionContext, time_worked
                     console.error("Error sending session end data to backend:", error);
                     vscode.window.showErrorMessage(`Failed to send session end data: ${error.message}`);
             });
-            }
+        updateLatest(JSON.stringify(apiKey), Math.round(time_worked/60)); // Update the latest time worked in the backend
+        }
         })
         
 }
