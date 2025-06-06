@@ -57,12 +57,13 @@ jobs:
           npm install -g vsce
 
       - name: Download VSIX artifact
-        run: vsce package -o my-extension.vsix
+        run: vsce package 
 
       - name: Publish to VS Code Marketplace
-        env:
-          VSCODE_PAT: ${{ secrets.VSCODE_PAT }}
+        
         
         run: |
           echo "Publishing to VS Code Marketplace... ${VSCODE_PAT}"
-          vsce publish --packagePath my-extension.vsix
+          vsce publish -p ${{ secrets.VSCODE_PAT }}
+        env:
+          VSCODE_PAT: ${{ secrets.VSCODE_PAT }}
