@@ -61,5 +61,5 @@ jobs:
 
       - name: Publish to VS Code Marketplace
         env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          VSCODE_PAT: ${{ secrets.VSCODE_PAT }}
         run: vsce publish --packagePath my-extension.vsix
