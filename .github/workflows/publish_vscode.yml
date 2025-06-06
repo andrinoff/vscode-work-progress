@@ -41,15 +41,6 @@ jobs:
         run: |
           npx semantic-release
         continue-on-error: false
-
-  publish-to-marketplace:
-    needs: build-and-release
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Install vsce
         run: |
           npm install
