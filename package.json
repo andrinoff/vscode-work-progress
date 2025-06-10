@@ -73,7 +73,7 @@
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "@types/mocha": "^10.0.10",
-    "@types/node": "22.x",
+    "@types/node": "24.x",
     "@types/vscode": "^1.99.1",
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
