@@ -1,3 +1,8 @@
+> [!WARNING]
+> Project was closed! <br />
+> It's been fun, but Wakatime is better, and always will. Use this repo as a fork, if needed
+
+
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 <!--
