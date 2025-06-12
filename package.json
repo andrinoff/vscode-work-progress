@@ -3,7 +3,7 @@
   "displayName": "Work Progress",
   "icon": "icon.png",
   "description": "A visual studio code extension",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "publisher": "andrinoff",
   "repository": {
     "type": "git",
